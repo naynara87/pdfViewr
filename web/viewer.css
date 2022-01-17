@@ -866,7 +866,7 @@
   --overlay-button-border: 0 none;
   --overlay-button-bg-color: rgba(12, 12, 13, 0.1);
   --overlay-button-hover-bg-color: rgba(12, 12, 13, 0.3);
-
+  --toolbar-bottom-color: rgba(0, 0, 0, 0.3);
   --loading-icon: url(images/loading.svg);
   --treeitem-expanded-icon: url(images/treeitem-expanded.svg);
   --treeitem-collapsed-icon: url(images/treeitem-collapsed.svg);
@@ -952,6 +952,7 @@
     --doorhanger-separator-color: rgba(92, 92, 97, 1);
     --overlay-button-bg-color: rgba(92, 92, 97, 1);
     --overlay-button-hover-bg-color: rgba(115, 115, 115, 1);
+    --toolbar-bottom-color: rgba(255, 255, 255, 0.2);
 
     /* This image is used in <input> elements, which unfortunately means that
      * the `mask-image` approach used with all of the other images doesn't work
@@ -1246,7 +1247,7 @@ html[dir="rtl"] #sidebarResizer {
   height: 47px;
   background-color: var(--toolbar-bg-color);
   box-shadow: 3px 4px 0 var(--toolbar-border-color);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid var(--toolbar-border-color);
 }
 
 #toolbarViewer {
