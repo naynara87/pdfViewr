@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-.textLayer {
+ .textLayer {
   position: absolute;
   text-align: initial;
   left: 0;
@@ -1670,7 +1670,7 @@ html[dir="rtl"] .splitToolbarButton > .toolbarButton:first-child {
   background-color: var(--separator-color);
   z-index: 99;
   display: inline-block;
-  margin: 4px 8px;
+  margin: 4px 6px;
 }
 
 .findbar .splitToolbarButtonSeparator {
