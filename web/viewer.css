@@ -847,7 +847,7 @@
   --toggled-hover-active-btn-color: #556EE6;
   /* --dropdown-btn-bg-color: rgba(215, 215, 219, 1); */
   --dropdown-btn-bg-color: #e4e8f4;
-  --separator-color: rgba(0, 0, 0, 0.3);
+  --separator-color: rgba(0, 0, 0, 0.2);
   --field-color: rgba(6, 6, 6, 1);
   --field-bg-color: rgba(255, 255, 255, 1);
   --field-border-color: rgba(187, 187, 188, 1);
@@ -1599,7 +1599,7 @@ html[dir="rtl"] .findbar * {
 }
 
 .splitToolbarButton {
-  margin: 2px 2px 0;
+  margin: 1px 2px 1px;
   display: inline-block;
 }
 /* html[dir="ltr"] .splitToolbarButton > .toolbarButton {
@@ -1818,8 +1818,8 @@ html[dir="rtl"] .dropdownToolbarButton > select {
    * All relevant containers have a size of 28x28 */
   position: absolute;
   display: inline-block;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 
   content: "";
   background-color: var(--toolbar-icon-bg-color);
@@ -1835,8 +1835,8 @@ html[dir="rtl"] .dropdownToolbarButton > select {
 
 .toolbarButton::before {
   opacity: var(--toolbar-icon-opacity);
-  top: 8px;
-  left: 8px;
+  top: 6px;
+  left: 6px;
 }
 
 .toolbarButton:hover::before,

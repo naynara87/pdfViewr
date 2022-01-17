@@ -1,4 +1,4 @@
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M15 1a1 1 0 0 0-1 1v2.418A6.995 6.995 0 1 0 8 15a6.954 6.954 0 0 0 4.95-2.05 1 1 0 0 0-1.414-1.414A5.019 5.019 0 1 1 12.549 6H10a1 1 0 0 0 0 2h5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"></path></svg>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.0649 23.0639C21.1378 23.9946 20.036 24.733 18.8228 25.2368C17.6097 25.7406 16.309 26 14.9953 26C13.6817 26 12.381 25.7406 11.1678 25.2368C9.95467 24.733 8.8529 23.9946 7.92576 23.0639C6.05241 21.1904 5 18.6495 5 16C5 13.3505 6.05241 10.8096 7.92576 8.93605C8.8529 8.00544 9.95467 7.26703 11.1678 6.7632C12.381 6.25936 13.6817 6 14.9953 6C16.309 6 17.6097 6.25936 18.8228 6.7632C20.036 7.26703 21.1378 8.00544 22.0649 8.93605C22.9941 9.86257 23.731 10.9636 24.2332 12.1759C24.7355 13.3882 24.9931 14.6878 24.9914 16" stroke="#646464" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M27.4244 12.524L24.9912 16L21.5153 13.5668" stroke="#646464" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
