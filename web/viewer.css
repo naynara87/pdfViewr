@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
- .textLayer {
+.textLayer {
   position: absolute;
   text-align: initial;
   left: 0;
@@ -879,7 +879,6 @@
   --toolbarButton-zoomIn-icon: url(images/toolbarButton-zoomIn.svg);
   /* 컬러모드 추가 */
   --toolbarButton-colorMode-icon: url(images/toolbarButton-colormode.svg);
-
   --toolbarButton-presentationMode-icon: url(images/toolbarButton-presentationMode.svg);
   --toolbarButton-print-icon: url(images/toolbarButton-print.svg);
   --toolbarButton-openFile-icon: url(images/toolbarButton-openFile.svg);
@@ -1073,12 +1072,12 @@ select {
 
 #sidebarContainer {
   position: absolute;
-  top: 45px;
+  top: 47px;
   bottom: 0;
   width: var(--sidebar-width);
   visibility: hidden;
   z-index: 100;
-  border-top: 1px solid rgba(51, 51, 51, 1);
+  border-top: 1px solid rgba(51, 51, 51, 0.3);
   transition-duration: var(--sidebar-transition-duration);
   transition-timing-function: var(--sidebar-transition-timing-function);
 }
@@ -1124,7 +1123,7 @@ html[dir="rtl"] #outerContainer.sidebarOpen #sidebarContainer {
 }
 
 #sidebarContent {
-  top: 45px;
+  top: 48px;
   bottom: 0;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -1199,7 +1198,7 @@ html[dir="rtl"]
 
 #toolbarSidebar {
   width: 100%;
-  height: 45px;
+  height: 47px;
   background-color: var(--sidebar-toolbar-bg-color);
 }
 html[dir="ltr"] #toolbarSidebar {
@@ -1244,13 +1243,14 @@ html[dir="rtl"] #sidebarResizer {
 .findbar,
 .secondaryToolbar {
   position: relative;
-  height: 45px;
+  height: 47px;
   background-color: var(--toolbar-bg-color);
-  box-shadow: 0 1px 0 var(--toolbar-border-color);
+  box-shadow: 3px 4px 0 var(--toolbar-border-color);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 #toolbarViewer {
-  height: 45px;
+  height: 46px;
 }
 
 #loadingBar {
@@ -1340,7 +1340,7 @@ html[dir="rtl"] #outerContainer.sidebarOpen #loadingBar {
 
 .findbar,
 .secondaryToolbar {
-  top: 45px;
+  top: 54px;
   position: absolute;
   z-index: 10000;
   height: auto;
@@ -1599,7 +1599,7 @@ html[dir="rtl"] .findbar * {
 }
 
 .splitToolbarButton {
-  margin: 1px 2px 1px;
+  margin: 3px 2px 1px;
   display: inline-block;
 }
 /* html[dir="ltr"] .splitToolbarButton > .toolbarButton {
@@ -1691,8 +1691,8 @@ html[dir="rtl"] .splitToolbarButtonSeparator {
 .secondaryToolbarButton,
 .overlayButton {
   min-width: 16px;
-  margin: 2px 1px;
-  padding: 2px 6px 0;
+  margin: 3px 2px;
+  padding: 2px 6px;
   border: none;
   border-radius: 2px;
   color: var(--main-color);
@@ -1818,8 +1818,8 @@ html[dir="rtl"] .dropdownToolbarButton > select {
    * All relevant containers have a size of 28x28 */
   position: absolute;
   display: inline-block;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
 
   content: "";
   background-color: var(--toolbar-icon-bg-color);
@@ -1835,8 +1835,8 @@ html[dir="rtl"] .dropdownToolbarButton > select {
 
 .toolbarButton::before {
   opacity: var(--toolbar-icon-opacity);
-  top: 6px;
-  left: 6px;
+  top: 4px;
+  left: 4px;
 }
 
 .toolbarButton:hover::before,
@@ -2028,7 +2028,7 @@ html[dir="rtl"] .toolbarButton.pdfSidebarNotification::after {
   margin: 0;
   padding: 0 0 1px;
   height: auto;
-  min-height: 36px;
+  min-height: 42px;
   width: auto;
   min-width: 100%;
   white-space: normal;
@@ -2150,7 +2150,7 @@ html[dir="rtl"] .verticalToolbarSeparator {
 
 .toolbarField {
   padding: 4px 7px;
-  margin: 3px 0;
+  /* margin: 3px 0; */
   border-radius: 2px;
   background-color: var(--field-bg-color);
   background-clip: padding-box;

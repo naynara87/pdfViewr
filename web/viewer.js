@@ -2570,6 +2570,7 @@ function webViewerLastPage() {
 
 // 스크롤시 작동추가
 // window.addEventListener('wheel', findScrollDirectionOtherBrowsers);
+
 function findScrollDirectionOtherBrowsers(event){
     var delta;
     if (event.wheelDelta){
@@ -2578,8 +2579,8 @@ function findScrollDirectionOtherBrowsers(event){
         delta = -1 *event.deltaY;
       }
     if (delta < 0){
-      console.log("Down Scroll");
-      webViewerPreviousPage();
+        console.log("Down Scroll");
+        webViewerPreviousPage();
       }else if (delta > 0){
         console.log("Up Scroll");
         webViewerNextPage();        
