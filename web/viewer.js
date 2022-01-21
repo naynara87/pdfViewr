@@ -9084,6 +9084,7 @@ function resizesize() {
     console.log('Not found');
   }
 
+  //패드형부터는 위아래로 스크롤시 작동
 }
 
 
