@@ -9024,7 +9024,7 @@ class PDFSidebarResizer {
       if (evt?.source !== window) {
         return;
       }
-      // resizesize();//화면 사이즈에 따른 사이드 축소
+      resizesize();//화면 사이즈에 따른 사이드 축소
       this._outerContainerWidth = null;
 
       if (!this._width) {
@@ -9065,18 +9065,21 @@ function resizesize() {
   var isTablet = window.screen.width < 992 && window.screen.width > 767 && hasMobileUAg;
   var isMobile = window.screen.width < 767 && hasMobileUAg;
   var isDesktop = !isTablet && !isMobile;
-  if (isDesktop || isMobile) {
+  var toggleButton = document.getElementById("sidebarToggle")
+
+  if (isTablet || isMobile) {
     console.log('Tablet');
+    outerContainer.classList.remove("sidebarOpen");
     toggleButton.classList.remove("toggled");
     toggleButton.setAttribute("aria-expanded", "false");
     outerContainer.classList.add("sidebarMoving");
-    outerContainer.classList.remove("sidebarOpen");
   } else if (isDesktop) {
     console.log('Desktop');
-    outerContainer.classList.add("sidebarOpen");
+
     toggleButton.classList.add("toggled");
-    outerContainer.classList.remove("sidebarMoving");
+    outerContainer.classList.add("sidebarOpen");
     toggleButton.setAttribute("aria-expanded", "true");
+    outerContainer.classList.remove("sidebarMoving");
   } else {
     console.log('Not found');
   }
@@ -15639,7 +15642,7 @@ function getViewerConfiguration() {
     sidebar: {
       outerContainer: document.getElementById("outerContainer"),
       viewerContainer: document.getElementById("viewerContainer"),
-      toggleButton: document.getElementById("sidebarToggle"),
+      toggleButton: document.getElementById("sidebarToggle"), //토글버튼
       thumbnailButton: document.getElementById("viewThumbnail"),
       outlineButton: document.getElementById("viewOutline"),
       attachmentsButton: document.getElementById("viewAttachments"),
