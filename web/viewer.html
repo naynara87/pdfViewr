@@ -119,23 +119,24 @@ See https://github.com/adobe-type-tools/cmap-resources
 
         <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
           <div id="secondaryToolbarButtonContainer">
+            <button id="colorMode" class="secondaryToolbarButton colorMode visibleXLargeView" title="화면색 모드변경 버튼" tabindex="51">
+              <span data-l10n-id="dark_mode_label">화면색 변경 모드</span>
+            </button>
             <button id="secondaryPresentationMode" class="secondaryToolbarButton presentationMode visibleLargeView" title="Switch to Presentation Mode" tabindex="51" data-l10n-id="presentation_mode">
               <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
             </button>
-
+            <div class="horizontalToolbarSeparator visibleXLargeView"></div>
             <button id="secondaryOpenFile" class="secondaryToolbarButton openFile visibleLargeView" title="Open File" tabindex="52" data-l10n-id="open_file">
               <span data-l10n-id="open_file_label">Open</span>
             </button>
-
-            <button id="secondaryPrint" class="secondaryToolbarButton print visibleMediumView" title="Print" tabindex="53" data-l10n-id="print">
-              <span data-l10n-id="print_label">Print</span>
-            </button>
-
-            <button id="secondaryDownload" class="secondaryToolbarButton download visibleMediumView" title="Download" tabindex="54" data-l10n-id="download">
+            <button id="secondaryDownload" class="secondaryToolbarButton download visibleLargeView" title="Download" tabindex="54" data-l10n-id="download">
               <span data-l10n-id="download_label">Download</span>
             </button>
-
-            <a href="#" id="secondaryViewBookmark" class="secondaryToolbarButton bookmark visibleSmallView" title="Current view (copy or open in new window)" tabindex="55" data-l10n-id="bookmark">
+            <div class="horizontalToolbarSeparator visibleLargeView"></div>
+            <button id="secondaryPrint" class="secondaryToolbarButton print visibleLargeView" title="Print" tabindex="53" data-l10n-id="print">
+              <span data-l10n-id="print_label">Print</span>
+            </button>
+            <a href="#" id="secondaryViewBookmark" class="secondaryToolbarButton bookmark visibleSmallView" title="Current view (copy or open in new window)" tabindex="55" data-l10n-id="bookmark" style="display:none">
               <span data-l10n-id="bookmark_label">Current View</span>
             </a>
 
@@ -157,14 +158,14 @@ See https://github.com/adobe-type-tools/cmap-resources
               <span data-l10n-id="page_rotate_ccw_label">Rotate Counterclockwise</span>
             </button>
 
-            <!-- <div class="horizontalToolbarSeparator"></div> -->
+            <div class="horizontalToolbarSeparator"></div>
 
-            <!-- <button id="cursorSelectTool" class="secondaryToolbarButton selectTool toggled" title="Enable Text Selection Tool" tabindex="60" data-l10n-id="cursor_text_select_tool">
+            <button id="cursorSelectTool" class="secondaryToolbarButton selectTool toggled visibleXLargeView" title="Enable Text Selection Tool" tabindex="60" data-l10n-id="cursor_text_select_tool">
               <span data-l10n-id="cursor_text_select_tool_label">Text Selection Tool</span>
             </button>
-            <button id="cursorHandTool" class="secondaryToolbarButton handTool" title="Enable Hand Tool" tabindex="61" data-l10n-id="cursor_hand_tool">
+            <button id="cursorHandTool" class="secondaryToolbarButton handTool visibleXLargeView" title="Enable Hand Tool" tabindex="61" data-l10n-id="cursor_hand_tool">
               <span data-l10n-id="cursor_hand_tool_label">Hand Tool</span>
-            </button> -->
+            </button>
 
             <div class="horizontalToolbarSeparator"></div>
 
@@ -205,32 +206,33 @@ See https://github.com/adobe-type-tools/cmap-resources
           <div id="toolbarContainer">
             <div id="toolbarViewer">
               <div id="toolbarViewerLeft">
+                <div class="bbc-logo"></div>
                 <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar" aria-expanded="false" aria-controls="sidebarContainer">
                   <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
                 </button>
                 
                 <!-- <div class="toolbarButtonSpacer"></div> -->
-                <div class="splitToolbarButtonSeparator"></div>
+                <div class="splitToolbarButtonSeparator hiddenLargeView"></div>
                 <button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="32" data-l10n-id="open_file">
                   <span data-l10n-id="open_file_label">Open</span>
                 </button>
-                <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="34" data-l10n-id="download">
+                <button id="download" class="toolbarButton download hiddenLargeView" title="Download" tabindex="34" data-l10n-id="download">
                   <span data-l10n-id="download_label">Download</span>
                 </button>
-                <div class="splitToolbarButtonSeparator"></div>
-                <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="33" data-l10n-id="print">
+                <div class="splitToolbarButtonSeparator hiddenLargeView"></div>
+                <button id="print" class="toolbarButton print hiddenLargeView" title="Print" tabindex="33" data-l10n-id="print">
                   <span data-l10n-id="print_label">Print</span>
                 </button>
-                <div class="splitToolbarButtonSeparator hiddenSmallView"></div>
-                <button id="cursorSelectTool" class="toolbarButton selectTool hiddenLargeView toggled" title="Enable Text Selection Tool" tabindex="" data-l10n-id="cursor_text_select_tool">
+                <div class="splitToolbarButtonSeparator"></div>
+                <button id="cursorSelectTool" class="toolbarButton selectTool hiddenXLargeView toggled" title="Enable Text Selection Tool" tabindex="" data-l10n-id="cursor_text_select_tool">
                   <span data-l10n-id="cursor_text_select_tool_label">Text Selection Tool</span>
                 </button>
-                <button id="cursorHandTool" class="toolbarButton handTool hiddenLargeView" title="Enable Hand Tool" tabindex="61" data-l10n-id="cursor_hand_tool">
+                <button id="cursorHandTool" class="toolbarButton handTool hiddenXLargeView" title="Enable Hand Tool" tabindex="61" data-l10n-id="cursor_hand_tool">
                   <span data-l10n-id="cursor_hand_tool_label">Hand Tool</span>
                 </button>
-                <div class="toolbarButtonSpacer"></div>
+                <!-- <div class="toolbarButtonSpacer hiddenLargeView"></div> -->
 
-                <div class="splitToolbarButton hiddenSmallView">
+                <div class="splitToolbarButton hiddenMediumView">
                   <button class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="13" data-l10n-id="previous">
                     <span data-l10n-id="previous_label">Previous</span>
                   </button>
@@ -240,7 +242,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                     <span data-l10n-id="next_label">Next</span>
                   </button>
                 </div>
-                <div class="splitToolbarButtonSeparator hiddenSmallView"></div>
+                <div class="splitToolbarButtonSeparator hiddenMediumView"></div>
                 <div class="splitToolbarButton">
                   <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="21" data-l10n-id="zoom_out">
                     <span data-l10n-id="zoom_out_label">Zoom Out</span>
@@ -249,7 +251,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                     <span data-l10n-id="zoom_in_label">Zoom In</span>
                    </button>
                 </div>
-                <span id="scaleSelectContainer" class="dropdownToolbarButton">
+                <span id="scaleSelectContainer" class="dropdownToolbarButton hiddenXLargeView">
                   <select id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="zoom">
                     <option id="pageAutoOption" title="" value="auto" selected="selected" data-l10n-id="page_scale_auto">Automatic Zoom</option>
                     <option id="pageActualOption" title="" value="page-actual" data-l10n-id="page_scale_actual">Actual Size</option>
@@ -269,7 +271,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                 
               </div>
               <div id="toolbarViewerRight">
-                <button id="colorMode" class="toolbarButton colorMode hiddenLargeView" title="화면색 모드" tabindex="31">
+                <button id="colorMode" class="toolbarButton colorMode hiddenXLargeView" title="화면색 모드" tabindex="31">
                   <span data-l10n-id="presentation_mode_label">color Mode</span>
                 </button>
 
@@ -280,7 +282,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                   <span data-l10n-id="bookmark_label">Current View</span>
                 </a>
                 
-                <div class="splitToolbarButtonSeparator hiddenSmallView"></div>
+                <div class="splitToolbarButtonSeparator hiddenLargeView"></div>
                 <button id="viewFind" class="toolbarButton" title="Find in Document" tabindex="12" data-l10n-id="findbar" aria-expanded="false" aria-controls="findbar">
                   <span data-l10n-id="findbar_label">Find</span>
                 </button>
@@ -412,16 +414,20 @@ See https://github.com/adobe-type-tools/cmap-resources
     <div id="printContainer"></div>
   </body>
   <script>
-
+    //로고 변경
+    var logoImg = document.querySelector('.bbc-logo-img');
     //Darkmode Change 버튼 기능
-
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.documentElement.classList.add("dark")
+      document.documentElement.classList.add("dark");
     }
 
-    document.getElementById("colorMode").addEventListener("click",() => {
-    document.documentElement.classList.toggle("dark")
+    document.querySelector(".colorMode").addEventListener("click",() => {
+    document.documentElement.classList.toggle("dark");
     })
+
+    
+   
+
 
   </script>
 </html>

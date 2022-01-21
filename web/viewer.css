@@ -12,7 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/* 로고추가 */
 
+.bbc-logo{
+  height: 46px;
+  padding: 0 15px 0 12px;
+  width: 140px;
+  background: url(./images/bbc-logo_w.svg) no-repeat center center;
+  background-size: 85%;
+}
+.dark .bbc-logo{
+  background: url(./images/bbc-logo_d.svg) no-repeat center center;
+  background-size: 85%;
+}
 .textLayer {
   position: absolute;
   text-align: initial;
@@ -2793,12 +2805,50 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     display: block;
   }
 }
-
+.visibleXLargeView,
 .visibleLargeView,
 .visibleMediumView,
 .visibleSmallView {
   display: none;
 }
+
+@media (max-width: 1200px) {
+  #toolbarContainer{
+    /* min-width: 1000px; */
+  }
+  #outerContainer .hiddenXLargeView{
+    display: none;
+  }
+  #outerContainer .visibleXLargeView{
+    display: inherit;
+  }
+  .bbc-logo{
+    height: 46px;
+    padding: 0 5px;
+    width: 60px;
+    background: url(./images/bbc-logo_min.svg) no-repeat center center;
+    background-size: 65%;
+  }
+  .dark .bbc-logo{
+    background: url(./images/bbc-logo_min.svg) no-repeat center center;
+    background-size: 65%;
+  }
+}
+
+@media (max-width: 768px) {
+  #toolbarContainer{
+    /* min-width: 768px */
+  }
+  
+}
+@media (max-width: 640px) {
+  #toolbarContainer{
+    min-width: auto
+  }
+}
+
+
+
 
 @media all and (max-width: 900px) {
   #toolbarViewerMiddle {
