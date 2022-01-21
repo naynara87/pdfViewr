@@ -1410,7 +1410,7 @@ html[dir="rtl"] .findbar .splitToolbarButton {
 }
 
 .findbar .splitToolbarButton > .toolbarButton::before {
-  top: 5px;
+  top: 2px;
 }
 
 .findbar .splitToolbarButton > .findNext {
@@ -2925,5 +2925,8 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
   }
   #sidebarContainer{
     width: 256px;
+  }
+  #findInput {
+    width: 185px;
   }
 }
