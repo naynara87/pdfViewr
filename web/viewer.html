@@ -525,7 +525,7 @@ See https://github.com/adobe-type-tools/cmap-resources
       x: originalCenter.x * zoom,
       y: originalCenter.y * zoom
     };
-    var imgEl = document.getElementById('target_img');
+    var imgEl = myElement.getElementsByClassName('page');
     imgEl.style.width = (zoom * 100) + 'px';
     ev.preventDefault();
   });
