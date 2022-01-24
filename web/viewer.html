@@ -497,38 +497,6 @@ See https://github.com/adobe-type-tools/cmap-resources
   }
   )
 
-  //모바일 확대축소
-  var myElement = document.getElementById('viewer');
-  var mc = new Hammer.Manager(myElement);
-  var pinch = new Hammer.Pinch();
-  var rotate = new Hammer.Rotate();
-  pinch.recognizeWith(rotate);
-  mc.add([pinch, rotate]);
-
-  var gestureThrottle = +new Date();
-  var originalScale, originalCenter;
-  var defaultZoomValue = 1.0;
-  mc.on("pinchstart", function(ev) {
-    originalScale = defaultZoomValue || 1.0;
-    originalCenter = ev.center;
-  });
-  mc.on("pinch", function(ev) {
-    var now = +new Date();
-    if ((now - gestureThrottle) < 50) { return; }
-    gestureThrottle = now;
-    var zoom = originalScale * ev.scale;
-    var changeCenter = {
-      x: originalCenter.x * zoom,
-      y: originalCenter.y * zoom
-    };
-    var imgEl = myElement.getElementsByClassName('page');
-    imgEl.style.width = (zoom * 100) + 'px';
-    ev.preventDefault();
-  });
-  mc.on("pinchend", function(ev) {
-    originalCenter = null;
-  });
-
 </script>
 
 </html>
