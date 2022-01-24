@@ -2866,10 +2866,10 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
 }
 @media (max-width: 535px) {
   #toolbarContainer{
-    height: 42px;
+    height: 38px;
   }
   #toolbarViewer {
-    height: 42px;
+    height: 38px;
   }
   .toolbarField {
     padding: 2px 7px;
@@ -2887,7 +2887,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     height: 25px;
   }
   .toolbarField.pageNumber{
-    height: 28px;
+    height: 26px;
   }
   .toolbarLabel {
     line-height:1;
