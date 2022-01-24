@@ -2869,7 +2869,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     height: 42px;
   }
   #toolbarViewer {
-    height: 35px;
+    height: 42px;
   }
   .toolbarField {
     padding: 2px 7px;
@@ -2891,6 +2891,9 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
   }
   .toolbarLabel {
     line-height:1;
+  }
+  .splitToolbarButtonSeparator{
+    padding: 16px 0;
   }
 }
 
