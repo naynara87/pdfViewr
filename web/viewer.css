@@ -2864,7 +2864,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     min-width: auto
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 535px) {
   #toolbarContainer{
     height: 42px;
   }
@@ -2894,6 +2894,15 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
   }
   .splitToolbarButtonSeparator{
     padding: 16px 0;
+  }
+  .findbar .splitToolbarButton > .toolbarButton{
+    height: 34px;
+  }
+  .findbar .splitToolbarButtonSeparator {
+    padding: 17px 0;
+  }
+  .findbar .splitToolbarButton > .findNext {
+    width: 32px;
   }
 }
 
@@ -2976,7 +2985,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     width: 256px;
   }
   #findInput {
-    width: calc(100% - 99px)
+    width: calc(100% - 82px)
   }
   .findbar #findbarInputContainer{
     width: 100%;
