@@ -10769,8 +10769,9 @@ class BaseViewer {
           break;
 
         case "auto":
-          const horizontalScale = (0, _ui_utils.isPortraitOrientation)(currentPage) ? pageWidthScale : Math.min(pageHeightScale, pageWidthScale);
-          scale = Math.min(_ui_utils.MAX_AUTO_SCALE, horizontalScale);
+          scale = Math.min(pageWidthScale, pageHeightScale)*0.95;
+          // const horizontalScale = (0, _ui_utils.isPortraitOrientation)(currentPage) ? pageWidthScale : Math.min(pageHeightScale, pageWidthScale);
+          // scale = Math.min(_ui_utils.MAX_AUTO_SCALE, horizontalScale);
           break;
 
         default:
