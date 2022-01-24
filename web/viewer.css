@@ -2860,7 +2860,11 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     min-width: auto
   }
 }
-
+@media (max-width: 500px) {
+  .bbc-logo {
+    width: 45px;
+  }
+}
 
 
 

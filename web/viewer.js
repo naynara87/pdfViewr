@@ -2471,7 +2471,7 @@ function webViewerScrollModeChanged(evt) {
       console.log('스크롤 가능');
       pageContainer.addEventListener('touchstart', function (event) {
         var touch = event.touches[0];
-        console.go
+        console.log('touchstart');
         touchstartX = touch.clientX;
         touchstartY = touch.clientY;
       }, false);
@@ -2483,7 +2483,8 @@ function webViewerScrollModeChanged(evt) {
           touchendY = touch.clientY;
           touchoffsetX = touchendX - touchstartX;
           touchoffsetY = touchendY - touchstartY;
-          if (Math.abs(touchoffsetX) >= 80 && Math.abs(touchoffsetY) <= 10) {
+          if (Math.abs(touchoffsetX) >= 10 && Math.abs(touchoffsetY) <= 100) {
+            console.log('touchend');
             if (touchoffsetX < 0) {
               webViewerNextPage();
             } else {
@@ -9127,6 +9128,7 @@ function resizesize() {
     toggleButton.classList.remove("toggled");
     toggleButton.setAttribute("aria-expanded", "false");
     outerContainer.classList.add("sidebarMoving");
+    // evt.mode == 3;
   } else if (isDesktop) {
     console.log('Desktop');
     toggleButton.classList.add("toggled");
