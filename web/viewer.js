@@ -2454,9 +2454,80 @@ function webViewerUpdateViewarea(evt) {
 
 function webViewerScrollModeChanged(evt) {
   if (PDFViewerApplication.isInitialViewSet) {
+    // console.log(evt.mode,"webViewerScrollModeChanged");
+    
     PDFViewerApplication.store?.set("scrollMode", evt.mode).catch(() => {});
+    
+    var touchstartX = 0;
+    var touchstartY = 0;
+    var touchendX = 0;
+    var touchendY = 0;
+    var touchoffsetX = 0;
+    var touchoffsetY = 0;
+
+    var pageContainer = document.getElementById("viewerContainer");
+    if(evt.mode == 3){
+      pageContainer.addEventListener('wheel', findScrollDirectionOtherBrowsers);
+      console.log('스크롤 가능');
+      pageContainer.addEventListener('touchstart', function (event) {
+        var touch = event.touches[0];
+        console.go
+        touchstartX = touch.clientX;
+        touchstartY = touch.clientY;
+      }, false);
+
+      pageContainer.addEventListener('touchend', function (event) {
+        if (event.touches.length == 0) {
+          var touch = event.changedTouches[event.changedTouches.length - 1];
+          touchendX = touch.clientX;
+          touchendY = touch.clientY;
+          touchoffsetX = touchendX - touchstartX;
+          touchoffsetY = touchendY - touchstartY;
+          if (Math.abs(touchoffsetX) >= 80 && Math.abs(touchoffsetY) <= 10) {
+            if (touchoffsetX < 0) {
+              webViewerNextPage();
+            } else {
+              webViewerPreviousPage();
+            }
+          }
+        }
+      }, false);
+    }else{
+      pageContainer.removeEventListener('wheel', findScrollDirectionOtherBrowsers);
+      console.log('금지');
+    }
   }
 }
+function addMultipleListeners(el, s, fn) {
+  var evts = s.split(' ');
+  for (var i=0, iLen=evts.length; i<iLen; i++) {
+    el.addEventListener(evts[i], fn, false);
+  }
+}
+
+// 스크롤시 작동추가
+function findScrollDirectionOtherBrowsers(event){
+  var delta;
+  // console.log(PDFViewerApplication)
+  if (event.wheelDelta){
+      delta = event.wheelDelta;
+    }else{
+      delta = -1 *event.deltaY;
+    }
+  if (delta < 0){
+      console.log("Down Scroll");
+      webViewerPreviousPage();
+    }else if (delta > 0){
+      console.log("Up Scroll");
+      webViewerNextPage();        
+    }
+}
+//터치좌우
+
+  
+
+  
+
 
 function webViewerSpreadModeChanged(evt) {
   if (PDFViewerApplication.isInitialViewSet) {
@@ -2568,24 +2639,7 @@ function webViewerLastPage() {
   }
 }
 
-// 스크롤시 작동추가
-// window.addEventListener('wheel', findScrollDirectionOtherBrowsers);
 
-function findScrollDirectionOtherBrowsers(event){
-    var delta;
-    if (event.wheelDelta){
-        delta = event.wheelDelta;
-      }else{
-        delta = -1 *event.deltaY;
-      }
-    if (delta < 0){
-        console.log("Down Scroll");
-        webViewerPreviousPage();
-      }else if (delta > 0){
-        console.log("Up Scroll");
-        webViewerNextPage();        
-      }
-}
 
 
 
@@ -9062,12 +9116,12 @@ function resizesize() {
   var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
 
   var hasMobileUAg = pa.test(uAg);
-  var isTablet = window.screen.width < 992 && window.screen.width > 767 && hasMobileUAg;
-  var isMobile = window.screen.width < 767 && hasMobileUAg;
-  var isDesktop = !isTablet && !isMobile;
+  var isTablet = window.innerWidth < 992 || hasMobileUAg;
+  // var isMobile = window.innerWidth < 766 || hasMobileUAg;
+  var isDesktop = window.innerWidth > 993;
   var toggleButton = document.getElementById("sidebarToggle")
 
-  if (isTablet || isMobile) {
+  if (isTablet) {
     console.log('Tablet');
     outerContainer.classList.remove("sidebarOpen");
     toggleButton.classList.remove("toggled");
@@ -9075,7 +9129,6 @@ function resizesize() {
     outerContainer.classList.add("sidebarMoving");
   } else if (isDesktop) {
     console.log('Desktop');
-
     toggleButton.classList.add("toggled");
     outerContainer.classList.add("sidebarOpen");
     toggleButton.setAttribute("aria-expanded", "true");
@@ -11074,6 +11127,7 @@ class BaseViewer {
   }
 
   #getScrollAhead(visible) {
+    // console.log("getScrollAhead")
     if (visible.first?.id === 1) {
       return true;
     } else if (visible.last?.id === this.pagesCount) {
@@ -12286,6 +12340,7 @@ class PDFPageView {
     this.renderingState = _ui_utils.RenderingStates.RUNNING;
     const canvasWrapper = document.createElement("div");
     canvasWrapper.style.width = div.style.width;
+    console.log('캔버스사이즈:',canvasWrapper.style.width);
     canvasWrapper.style.height = div.style.height;
     canvasWrapper.classList.add("canvasWrapper");
 
@@ -13826,14 +13881,16 @@ class Toolbar {
 
       if (width > maxWidth) {
         maxWidth = width;
+        
       }
     }
 
-    maxWidth += 2 * scaleSelectOverflow;
+    maxWidth += 2 * scaleSelectOverflow; //사이즈 수정
 
     if (maxWidth > scaleSelectContainerWidth) {
       const doc = document.documentElement;
       doc.style.setProperty("--scale-select-container-width", `${maxWidth}px`);
+      console.log(maxWidth,'가로')
     }
 
     canvas.width = 0;
@@ -15737,5 +15794,6 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 
 /******/ })()
 ;
+
 //# sourceMappingURL=viewer.js.map
 

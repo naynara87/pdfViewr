@@ -35,7 +35,8 @@ See https://github.com/adobe-type-tools/cmap-resources
   <link rel="resource" type="application/l10n" href="locale/locale.properties">
   <script src="../build/pdf.js"></script>
   <script src="viewer.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"
+    integrity="sha256-eVNjHw5UeU0jUqPPpZHAkU1z4U+QFBBY488WvueTm88=" crossorigin="anonymous"></script>
 </head>
 
 <body tabindex="1">
@@ -127,8 +128,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
       <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
         <div id="secondaryToolbarButtonContainer">
-          <button id="colorMode" class="secondaryToolbarButton colorMode visibleXLargeView" title="화면색 모드변경 버튼"
-            tabindex="51">
+          <button class="secondaryToolbarButton colorMode visibleXLargeView" title="화면색 모드변경 버튼" tabindex="51">
             <span data-l10n-id="dark_mode_label">화면색 변경 모드</span>
           </button>
           <button id="secondaryPresentationMode" class="secondaryToolbarButton presentationMode visibleLargeView"
@@ -177,7 +177,7 @@ See https://github.com/adobe-type-tools/cmap-resources
             <span data-l10n-id="page_rotate_ccw_label">Rotate Counterclockwise</span>
           </button>
 
-          <div class="horizontalToolbarSeparator"></div>
+          <div class="horizontalToolbarSeparator visibleXLargeView"></div>
 
           <button id="cursorSelectTool" class="secondaryToolbarButton selectTool toggled visibleXLargeView"
             title="Enable Text Selection Tool" tabindex="60" data-l10n-id="cursor_text_select_tool">
@@ -265,6 +265,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                 tabindex="61" data-l10n-id="cursor_hand_tool">
                 <span data-l10n-id="cursor_hand_tool_label">Hand Tool</span>
               </button>
+              <div class="splitToolbarButtonSeparator hiddenXLargeView"></div>
               <!-- <div class="toolbarButtonSpacer hiddenLargeView"></div> -->
 
               <div class="splitToolbarButton hiddenMediumView">
@@ -320,7 +321,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
             </div>
             <div id="toolbarViewerRight">
-              <button id="colorMode" class="toolbarButton colorMode hiddenXLargeView" title="화면색 모드" tabindex="31">
+              <button class="toolbarButton colorMode hiddenXLargeView" title="화면색 모드" tabindex="31">
                 <span data-l10n-id="presentation_mode_label">color Mode</span>
               </button>
 
@@ -491,13 +492,24 @@ See https://github.com/adobe-type-tools/cmap-resources
   if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
     document.documentElement.classList.add("dark");
   }
+  var colorMode = document.querySelectorAll(".colorMode");
+  colorMode.forEach(function (e) {
+    e.addEventListener("click", () => {
+      document.documentElement.classList.toggle("dark");
+      console.log('클릭')
+    })
+  }
+  )
 
-  document.querySelector(".colorMode").addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
-  })
+  //자바스크립트 스와이프 기능
+  // var 이미지1 = document.querySelectorAll('.slide-box img')[0];
 
- 
+  // var 매니저 = new Hammer.Manager(이미지1);
+  // 매니저.add(new Hammer.Pan({ threshold: 0 }));
 
+  // 매니저.on('pan', function(e){
+  //   //이미지1이 pan 되었을 때 실행할 코드 
+  // })
 
 
 </script>
