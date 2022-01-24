@@ -2210,6 +2210,7 @@ html[dir="rtl"] .toolbarField[type="checkbox"] {
   min-width: 16px;
   text-align: center;
   width: 35px;
+  height: 30px
 }
 
 .toolbarField.pageNumber.visiblePageIsLoading {
@@ -2235,7 +2236,7 @@ html[dir="rtl"] .toolbarField[type="checkbox"] {
   border-radius: 2px;
   color: var(--main-color);
   font-size: 14px;
-  line-height: 27px;
+  line-height: 1.7;
   text-align: left;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -2847,6 +2848,9 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     background: url(./images/bbc-logo_min.svg) no-repeat center center;
     background-size: 65%;
   }
+  .splitToolbarButton{
+    display: flex;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2861,8 +2865,32 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
   }
 }
 @media (max-width: 500px) {
+  #toolbarContainer{
+    height: 42px;
+  }
+  #toolbarViewer {
+    height: 35px;
+  }
+  .toolbarField {
+    padding: 2px 7px;
+  }
   .bbc-logo {
     width: 45px;
+    height: 35px;
+  }
+  .toolbarButton{
+    width: 32px;
+    height: 32px;
+  }
+  .toolbarButton::before{
+    width: 25px;
+    height: 25px;
+  }
+  .toolbarField.pageNumber{
+    height: 28px;
+  }
+  .toolbarLabel {
+    line-height:1;
   }
 }
 

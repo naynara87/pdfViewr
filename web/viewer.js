@@ -2457,48 +2457,54 @@ function webViewerScrollModeChanged(evt) {
     // console.log(evt.mode,"webViewerScrollModeChanged");
     
     PDFViewerApplication.store?.set("scrollMode", evt.mode).catch(() => {});
-    
-    var touchstartX = 0;
-    var touchstartY = 0;
-    var touchendX = 0;
-    var touchendY = 0;
-    var touchoffsetX = 0;
-    var touchoffsetY = 0;
+
 
     var pageContainer = document.getElementById("viewerContainer");
     if(evt.mode == 3){
       pageContainer.addEventListener('wheel', findScrollDirectionOtherBrowsers);
       console.log('스크롤 가능');
-      pageContainer.addEventListener('touchstart', function (event) {
-        var touch = event.touches[0];
-        console.log('touchstart');
-        touchstartX = touch.clientX;
-        touchstartY = touch.clientY;
-      }, false);
-
-      pageContainer.addEventListener('touchend', function (event) {
-        if (event.touches.length == 0) {
-          var touch = event.changedTouches[event.changedTouches.length - 1];
-          touchendX = touch.clientX;
-          touchendY = touch.clientY;
-          touchoffsetX = touchendX - touchstartX;
-          touchoffsetY = touchendY - touchstartY;
-          if (Math.abs(touchoffsetX) >= 10 && Math.abs(touchoffsetY) <= 100) {
-            console.log('touchend');
-            if (touchoffsetX < 0) {
-              webViewerNextPage();
-            } else {
-              webViewerPreviousPage();
-            }
-          }
-        }
-      }, false);
+      pageContainer.addEventListener('touchstart',touchstart , false);
+      pageContainer.addEventListener('touchend',touchend, false);
     }else{
       pageContainer.removeEventListener('wheel', findScrollDirectionOtherBrowsers);
       console.log('금지');
+      pageContainer.removeEventListener('touchstart',touchstart, false)
+      pageContainer.removeEventListener('touchend',touchend, false);
     }
   }
 }
+//터치 좌우 스와이프 스크립트
+var touchstartX = 0;
+var touchstartY = 0;
+var touchendX = 0;
+var touchendY = 0;
+var touchoffsetX = 0;
+var touchoffsetY = 0;
+
+function touchstart(event) {
+  var touch = event.touches[0];
+  console.log('touchstart');
+  touchstartX = touch.clientX;
+  touchstartY = touch.clientY;
+}
+function touchend(event) {
+  if (event.touches.length == 0) {
+    var touch = event.changedTouches[event.changedTouches.length - 1];
+    touchendX = touch.clientX;
+    touchendY = touch.clientY;
+    touchoffsetX = touchendX - touchstartX;
+    touchoffsetY = touchendY - touchstartY;
+    if (Math.abs(touchoffsetX) >= 10 && Math.abs(touchoffsetY) <= 100) {
+      console.log('touchend');
+      if (touchoffsetX < 0) {
+        webViewerNextPage();
+      } else {
+        webViewerPreviousPage();
+      }
+    }
+  }
+}
+
 function addMultipleListeners(el, s, fn) {
   var evts = s.split(' ');
   for (var i=0, iLen=evts.length; i<iLen; i++) {

@@ -24,7 +24,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="google" content="notranslate">
   <title>PDF.js viewer</title>
   <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
@@ -35,8 +35,7 @@ See https://github.com/adobe-type-tools/cmap-resources
   <link rel="resource" type="application/l10n" href="locale/locale.properties">
   <script src="../build/pdf.js"></script>
   <script src="viewer.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"
-    integrity="sha256-eVNjHw5UeU0jUqPPpZHAkU1z4U+QFBBY488WvueTm88=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" crossorigin="anonymous"></script>
 </head>
 
 <body tabindex="1">
@@ -280,8 +279,8 @@ See https://github.com/adobe-type-tools/cmap-resources
                   <span data-l10n-id="next_label">Next</span>
                 </button>
               </div>
-              <div class="splitToolbarButtonSeparator"></div>
-              <div class="splitToolbarButton">
+              <div class="splitToolbarButtonSeparator hiddenMediumView"></div>
+              <div class="splitToolbarButton hiddenMediumView">
                 <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="21"
                   data-l10n-id="zoom_out">
                   <span data-l10n-id="zoom_out_label">Zoom Out</span>
