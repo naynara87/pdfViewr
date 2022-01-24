@@ -10765,7 +10765,7 @@ class BaseViewer {
           break;
 
         case "page-fit":
-          scale = Math.min(pageWidthScale, pageHeightScale);
+          scale = Math.min(pageWidthScale, pageHeightScale)*0.95;
           break;
 
         case "auto":
@@ -15804,4 +15804,3 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 ;
 
 //# sourceMappingURL=viewer.js.map
-

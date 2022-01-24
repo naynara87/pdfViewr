@@ -176,7 +176,7 @@ See https://github.com/adobe-type-tools/cmap-resources
             <span data-l10n-id="page_rotate_ccw_label">Rotate Counterclockwise</span>
           </button>
 
-          <div class="horizontalToolbarSeparator visibleXLargeView"></div>
+          <!-- <div class="horizontalToolbarSeparator visibleXLargeView"></div>
 
           <button id="cursorSelectTool" class="secondaryToolbarButton selectTool toggled visibleXLargeView"
             title="Enable Text Selection Tool" tabindex="60" data-l10n-id="cursor_text_select_tool">
@@ -185,7 +185,7 @@ See https://github.com/adobe-type-tools/cmap-resources
           <button id="cursorHandTool" class="secondaryToolbarButton handTool visibleXLargeView" title="Enable Hand Tool"
             tabindex="61" data-l10n-id="cursor_hand_tool">
             <span data-l10n-id="cursor_hand_tool_label">Hand Tool</span>
-          </button>
+          </button> -->
 
           <div class="horizontalToolbarSeparator"></div>
 
@@ -239,6 +239,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                 data-l10n-id="toggle_sidebar" aria-expanded="false" aria-controls="sidebarContainer">
                 <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
               </button>
+
               <!-- <div class="toolbarButtonSpacer"></div> -->
               <div class="splitToolbarButtonSeparator hiddenLargeView"></div>
               <button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="32"
@@ -291,16 +292,12 @@ See https://github.com/adobe-type-tools/cmap-resources
               </div>
               <span id="scaleSelectContainer" class="dropdownToolbarButton hiddenXLargeView">
                 <select id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="zoom">
-                  <option id="pageAutoOption" title="" value="auto" selected="selected" data-l10n-id="page_scale_auto">
-                    Automatic Zoom</option>
-                  <option id="pageActualOption" title="" value="page-actual" data-l10n-id="page_scale_actual">Actual
-                    Size</option>
-                  <option id="pageFitOption" title="" value="page-fit" data-l10n-id="page_scale_fit">Page Fit</option>
-                  <option id="pageWidthOption" title="" value="page-width" data-l10n-id="page_scale_width">Page Width
-                  </option>
+                  <!-- <option id="pageAutoOption" title="" value="auto" data-l10n-id="page_scale_auto">Automatic Zoom</option> -->
+                  <option id="pageFitOption" title="" value="page-fit" selected="selected" data-l10n-id="page_scale_fit">Automatic Zoom</option>
+                  <option id="pageActualOption" title="" value="page-actual" data-l10n-id="page_scale_actual">Actual Size</option>
+                  <option id="pageWidthOption" title="" value="page-width" data-l10n-id="page_scale_width">Page Width</option>
                   <option id="customScaleOption" title="" value="custom" disabled="disabled" hidden="true"></option>
-                  <option title="" value="0.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 50 }'>50%
-                  </option>
+                  <option title="" value="0.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 50 }'>50%</option>
                   <option title="" value="0.75" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 75 }'>75%
                   </option>
                   <option title="" value="1" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 100 }'>100%
