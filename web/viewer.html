@@ -466,6 +466,7 @@
   if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
     document.documentElement.classList.add("dark");
   }
+  //다크 on/off mode
   var colorMode = document.querySelectorAll(".colorMode");
   colorMode.forEach(function (e) {
     e.addEventListener("click", () => {
@@ -475,7 +476,30 @@
   })
 
 
-//zoom
+//nav 고정시 흔들림
+var lastScrollTop = 0; 
+var delta = 5; // 동작의 구현이 시작되는 위치 
+var navHeader = document.querySelector('header');
+var navbarHeight = document.querySelector('.toolbar').outerHeight();// 영향을 받을 요소를 선택
+
+var st = $(this).scrollTop();
+
+if (Math.abs(lastScrollTop — st) <= delta) return;
+
+// If current position > last position AND scrolled past navbar... 
+if (st > lastScrollTop && st > navbarHeight){ 
+  // Scroll Down 
+  navHeader.classList.remove('nav-down').add('nav-up');
+} else { 
+  // Scroll Up 
+  // If did not scroll past the document (possible on mac)...
+  if(st + $(window).height() < $(document).height()) {
+    navHeader.classList.remove('nav-up').add('nav-down');
+  } 
+}
+
+
+//모바일 터치 zoom 반영
 let pinchZoomEnabled = false;
 function enablePinchZoom(pdfViewer) {
   let startX = 0, startY = 0;
@@ -535,6 +559,8 @@ document.addEventListener('webviewerloaded', () => {
     enablePinchZoom();
   }
 });
+
+
 </script>
 
 </html>

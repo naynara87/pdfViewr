@@ -10765,11 +10765,11 @@ class BaseViewer {
           break;
 
         case "page-fit":
-          scale = Math.min(pageWidthScale, pageHeightScale)*0.95;
+          scale = Math.min(pageWidthScale, pageHeightScale)*0.977;
           break;
 
         case "auto":
-          scale = Math.min(pageWidthScale, pageHeightScale)*0.95;
+          scale = Math.min(pageWidthScale, pageHeightScale)*0.977;
           // const horizontalScale = (0, _ui_utils.isPortraitOrientation)(currentPage) ? pageWidthScale : Math.min(pageHeightScale, pageWidthScale);
           // scale = Math.min(_ui_utils.MAX_AUTO_SCALE, horizontalScale);
           break;
