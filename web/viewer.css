@@ -1108,6 +1108,9 @@ select {
   transition-duration: var(--sidebar-transition-duration);
   transition-timing-function: var(--sidebar-transition-timing-function);
 }
+#sidebarContainer.side-up{
+  top: 0;
+}
 html[dir="ltr"] #sidebarContainer {
   transition-property: left;
   left: calc(0px - var(--sidebar-width));
@@ -1175,7 +1178,7 @@ html[dir="rtl"] #sidebarContent {
   right: 0;
   bottom: 0;
   left: 0;
-  padding-top: 42px;
+  padding-top: 50px;
   outline: none;
 }
 #viewerContainer::before, #viewerContainer::after {
@@ -1218,8 +1221,14 @@ html[dir="rtl"]
   z-index: 9999;
   cursor: default;
   overflow-x: auto;
+  top: 0;
+  /* transition: top 0.2s linear; */
+  transition-duration: var(--sidebar-transition-duration);
+  transition-timing-function: var(--sidebar-transition-timing-function);
 }
-
+.toolbar.nav-up{
+  top: -48px;
+}
 #toolbarContainer {
   width: 100%;
 }
@@ -2916,6 +2925,17 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     left: auto;
     position: inherit;
     transform: none;
+  }
+  .toolbarButton::before,
+  .secondaryToolbarButton::before,
+  .dropdownToolbarButton::after,
+  .treeItemToggler::before {
+    /* All matching images have a size of 16x16
+    * All relevant containers have a size of 28x28 */
+    position: absolute;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
   }
 }
 
