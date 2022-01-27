@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="dark" dir="ltr" mozdisallowselectionprint>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
@@ -11,9 +12,16 @@
 
   <!-- This snippet is used in production (included from viewer.html) -->
   <link rel="resource" type="application/l10n" href="locale/locale.properties">
+  <script type="text/javascript" src="compatibility.js"></script>
   <script src="../build/pdf.js"></script>
   <script src="viewer.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" crossorigin="anonymous"></script>
+  <!-- NEED THIS for Safari Mac to render work -->
+  <script type="text/javascript">
+    // Specify the main script used to create a new PDF.JS web worker.  
+    // In production, change this to point to the combined `pdf.js` file.  
+    PDFJS.workerSrc = 'pdf.worker.js';  
+  </script>
 </head>
 
 <body tabindex="1">
@@ -270,12 +278,16 @@
               </div>
               <span id="scaleSelectContainer" class="dropdownToolbarButton hiddenMediumView">
                 <select id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="zoom">
-                  <option id="pageFitOption" title="" value="page-fit" selected="selected" data-l10n-id="page_scale_fit">Page Fit</option>
+                  <option id="pageFitOption" title="" value="page-fit" selected="selected"
+                    data-l10n-id="page_scale_fit">Page Fit</option>
                   <!-- <option id="pageAutoOption" title="" value="auto" data-l10n-id="page_scale_auto">Automatic Zoom</option> -->
-                  <option id="pageActualOption" title="" value="page-actual" data-l10n-id="page_scale_actual">Actual Size</option>
-                  <option id="pageWidthOption" title="" value="page-width" data-l10n-id="page_scale_width">Page Width</option>
+                  <option id="pageActualOption" title="" value="page-actual" data-l10n-id="page_scale_actual">Actual
+                    Size</option>
+                  <option id="pageWidthOption" title="" value="page-width" data-l10n-id="page_scale_width">Page Width
+                  </option>
                   <option id="customScaleOption" title="" value="custom" disabled="disabled" hidden="true"></option>
-                  <option title="" value="0.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 50 }'>50%</option>
+                  <option title="" value="0.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 50 }'>50%
+                  </option>
                   <option title="" value="0.75" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 75 }'>75%
                   </option>
                   <option title="" value="1" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 100 }'>100%
@@ -455,7 +467,6 @@
         </div>
       </div>
     </div> <!-- overlayContainer -->
-
   </div> <!-- outerContainer -->
   <div id="printContainer"></div>
 </body>
@@ -475,22 +486,6 @@
     })
   })
 
-
-//nav 고정시 흔들림
-// var lastScrollTop = 0; 
-// var delta = 5; // 동작의 구현이 시작되는 위치 
-// var navHeader = document.querySelector('header');
-// var navbarHeight = document.querySelector('.toolbar').clientHeight;// 영향을 받을 요소를 선택
-// const navscroll = document.querySelector('#viewerContainer');
-// var st = navscroll.offsetTop;
-
-// if (st > lastScrollTop && st > navbarHeight){ 
-//   navHeader.classList.remove('nav-down').add('nav-up');
-// } else {
-//   if(st + $(window).height() < $(document).height()) {
-//     navHeader.classList.remove('nav-up').add('nav-down');
-//   } 
-// }
   var lastScrollTop = 0;
   const nav = document.querySelector('.toolbar');
   const navbarHeight = document.querySelector('.toolbar').clientHeight;
@@ -498,91 +493,91 @@
   const sidebarContainer = document.querySelector('#sidebarContainer');
 
   var windowWidth = window.innerWidth;
- 
+
   // window.addEventListener('resize', function () {
   //     if (windowWidth < 768) {
   //       //창 가로 크기가 768 미만일 경우
   //     } else {
   //       //창 가로 크기가 768보다 클 경우
-        
+
   //     }
   //   }, true);
   function fixNav() {
-      if (navScroll.scrollTop > lastScrollTop && navScroll.scrollTop > navbarHeight) {
-        nav.classList.add('nav-up');
-        sidebarContainer.classList.add('side-up');
-      } else {
-        if (navScroll.scrollTop < lastScrollTop) {
-          nav.classList.remove('nav-up');
-          sidebarContainer.classList.remove('side-up');
-        }
-      }
-      lastScrollTop = navScroll.scrollTop;
-    }
-    navScroll.removeEventListener('scroll', fixNav);
-    navScroll.addEventListener('scroll', fixNav);
-
-
-//모바일 터치 zoom 반영
-let pinchZoomEnabled = false;
-function enablePinchZoom(pdfViewer) {
-  let startX = 0, startY = 0;
-  let initialPinchDistance = 0;
-  let pinchScale = 1;
-  const viewer = document.getElementById("viewer");
-  const container = document.getElementById("viewerContainer");
-  const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
-
-  // Prevent native iOS page zoom
-  //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
-  document.addEventListener("touchstart", (e) => {
-    if (e.touches.length > 1) {
-      startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
-      startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
-      initialPinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+    if (navScroll.scrollTop > lastScrollTop && navScroll.scrollTop > navbarHeight) {
+      nav.classList.add('nav-up');
+      sidebarContainer.classList.add('side-up');
     } else {
-      initialPinchDistance = 0;
+      if (navScroll.scrollTop < lastScrollTop) {
+        nav.classList.remove('nav-up');
+        sidebarContainer.classList.remove('side-up');
+      }
     }
-  });
-
-  document.addEventListener("touchmove", (e) => {
-    if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
-    if (e.scale !== 1) { e.preventDefault(); }
-    const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-    const originX = startX + container.scrollLeft;
-    const originY = startY + container.scrollTop;
-    pinchScale = pinchDistance / initialPinchDistance;
-    viewer.style.transform = `scale(${pinchScale})`;
-    viewer.style.transformOrigin = `${originX}px ${originY}px`;
-  }, { passive: false });
-
-  const pinchMaxScale = 5;
-
-  container.addEventListener("touchend", (e) => {
-    if (initialPinchDistance <= 0) {
-      return;
-    }
-    viewer.style.transform = `none`;
-    viewer.style.transformOrigin = `unset`;
-    const newPinchScale =
-      PDFViewerApplication.pdfViewer.currentScale * pinchScale;
-    if (newPinchScale <= pinchMaxScale) {
-      PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
-      const rect = container.getBoundingClientRect();
-      const dx = startX - rect.left;
-      const dy = startY - rect.top;
-      container.scrollLeft += dx * (pinchScale - 1);
-      container.scrollTop += dy * (pinchScale - 1);
-    }
-    reset();
-  });
-}
-document.addEventListener('webviewerloaded', () => {
-  if('ontouchstart' in document) {
-    pinchZoomEnabled = true;
-    enablePinchZoom();
+    lastScrollTop = navScroll.scrollTop;
   }
-});
+  navScroll.removeEventListener('scroll', fixNav);
+  navScroll.addEventListener('scroll', fixNav);
+
+
+  //모바일 터치 zoom 반영
+  let pinchZoomEnabled = false;
+  function enablePinchZoom(pdfViewer) {
+    let startX = 0, startY = 0;
+    let initialPinchDistance = 0;
+    let pinchScale = 1;
+    const viewer = document.getElementById("viewer");
+    const container = document.getElementById("viewerContainer");
+    const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
+
+    // Prevent native iOS page zoom
+    //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
+    document.addEventListener("touchstart", (e) => {
+      if (e.touches.length > 1) {
+        startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
+        startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
+        initialPinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+      } else {
+        initialPinchDistance = 0;
+      }
+    });
+
+    document.addEventListener("touchmove", (e) => {
+      if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
+      if (e.scale !== 1) { e.preventDefault(); }
+      const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+      const originX = startX + container.scrollLeft;
+      const originY = startY + container.scrollTop;
+      pinchScale = pinchDistance / initialPinchDistance;
+      viewer.style.transform = `scale(${pinchScale})`;
+      viewer.style.transformOrigin = `${originX}px ${originY}px`;
+    }, { passive: false });
+
+    const pinchMaxScale = 5;
+
+    container.addEventListener("touchend", (e) => {
+      if (initialPinchDistance <= 0) {
+        return;
+      }
+      viewer.style.transform = `none`;
+      viewer.style.transformOrigin = `unset`;
+      const newPinchScale =
+        PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+      if (newPinchScale <= pinchMaxScale) {
+        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
+        const rect = container.getBoundingClientRect();
+        const dx = startX - rect.left;
+        const dy = startY - rect.top;
+        container.scrollLeft += dx * (pinchScale - 1);
+        container.scrollTop += dy * (pinchScale - 1);
+      }
+      reset();
+    });
+  }
+  document.addEventListener('webviewerloaded', () => {
+    if ('ontouchstart' in document) {
+      pinchZoomEnabled = true;
+      enablePinchZoom();
+    }
+  });
 
 
 </script>
