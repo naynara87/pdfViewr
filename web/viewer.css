@@ -833,9 +833,20 @@
   margin: 0 auto;
   border: 2px solid transparent;
 }
-
+.pageNum{
+  text-align: center;
+  margin-top: 5px;
+}
+.pageNum span{
+  text-align: center;
+  background: #fff;
+  color: #222;
+  padding: .2em 1em;
+  border-radius:5px;
+  font-size: 1.2rem;
+}
 :root {
-  --sidebar-width: 272px;
+  --sidebar-width: 260px;
   --sidebar-transition-duration: 200ms;
   --sidebar-transition-timing-function: ease;
   --scale-select-container-width: 140px;
@@ -1108,6 +1119,9 @@ select {
   transition-duration: var(--sidebar-transition-duration);
   transition-timing-function: var(--sidebar-transition-timing-function);
 }
+#sidebarContainer.side-up{
+  top: 0;
+}
 html[dir="ltr"] #sidebarContainer {
   transition-property: left;
   left: calc(0px - var(--sidebar-width));
@@ -1171,10 +1185,11 @@ html[dir="rtl"] #sidebarContent {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: absolute;
-  top: 45px;
+  top: 0px;
   right: 0;
   bottom: 0;
   left: 0;
+  margin-top: 50px;
   outline: none;
 }
 #viewerContainer::before, #viewerContainer::after {
@@ -1217,8 +1232,14 @@ html[dir="rtl"]
   z-index: 9999;
   cursor: default;
   overflow-x: auto;
+  top: 0;
+  /* transition: top 0.2s linear; */
+  transition-duration: var(--sidebar-transition-duration);
+  transition-timing-function: var(--sidebar-transition-timing-function);
 }
-
+.toolbar.nav-up{
+  top: -48px;
+}
 #toolbarContainer {
   width: 100%;
 }
@@ -2286,7 +2307,7 @@ html[dir="rtl"] .thumbnail {
 }
 
 .thumbnail:not([data-loaded]) {
-  border: 1px dashed rgba(132, 132, 132, 1);
+  /* border: 1px dashed rgba(132, 132, 132, 1); */
   margin: -1px 9px 25px;
 }
 
@@ -2301,7 +2322,7 @@ html[dir="rtl"] .thumbnail {
 
 .thumbnailSelectionRing {
   border-radius: 2px;
-  padding: 7px;
+  padding: 4px;
 }
 
 a:focus > .thumbnail > .thumbnailSelectionRing > .thumbnailImage,
@@ -2909,6 +2930,15 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
 
 
 @media all and (max-width: 900px) {
+  #sidebarContainer {
+    top: 40px!important;
+  }
+  #sidebarContent {
+    top: 40px;
+  }
+  #toolbarSidebar{
+    height: 38px;
+  }
   #toolbarViewerMiddle {
     display: table;
     margin: auto;
@@ -2916,6 +2946,18 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     position: inherit;
     transform: none;
   }
+  .toolbarButton::before,
+  .secondaryToolbarButton::before,
+  .dropdownToolbarButton::after,
+  .treeItemToggler::before {
+    /* All matching images have a size of 16x16
+    * All relevant containers have a size of 28x28 */
+    position: absolute;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+  }
+  
 }
 
 @media all and (max-width: 840px) {
@@ -2940,7 +2982,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
   }
 }
 
-@media all and (max-width: 770px) {
+@media all and (max-width: 870px) {
   #outerContainer .hiddenLargeView {
     display: none;
   }
@@ -2959,6 +3001,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
 }
 
 @media all and (max-width: 640px) {
+  
   .hiddenSmallView,
   .hiddenSmallView * {
     display: none;
@@ -2978,6 +3021,12 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
 }
 
 @media all and (max-width: 535px) {
+  #viewerContainer{margin-top: 40px;}
+  .toolbarButton::before {
+    opacity: var(--toolbar-icon-opacity);
+    top: 2px;
+    left: 2px;
+  }
   #scaleSelectContainer {
     display: none;
   }
