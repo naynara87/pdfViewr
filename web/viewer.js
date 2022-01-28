@@ -9134,6 +9134,7 @@ function resizesize() {
     toggleButton.classList.remove("toggled");
     toggleButton.setAttribute("aria-expanded", "false");
     outerContainer.classList.add("sidebarMoving");
+    
     // evt.mode == 3;
   } else if (isDesktop) {
     console.log('Desktop');
