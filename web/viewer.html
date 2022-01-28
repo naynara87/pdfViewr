@@ -565,7 +565,7 @@
       viewer.style.transformOrigin = `unset`;
       const newPinchScale =
         PDFViewerApplication.pdfViewer.currentScale * pinchScale;
-      if (newPinchScale <= pinchMaxScale && newPinchScale > pinchMinScale ) {
+      if (newPinchScale <= pinchMaxScale || newPinchScale > pinchMinScale ) {
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
