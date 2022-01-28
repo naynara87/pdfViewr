@@ -17,11 +17,11 @@
   <script src="viewer.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" crossorigin="anonymous"></script>
   <!-- NEED THIS for Safari Mac to render work -->
-  <!-- <script type="text/javascript">
+  <script type="text/javascript">
     // Specify the main script used to create a new PDF.JS web worker.  
     // In production, change this to point to the combined `pdf.js` file.  
-    PDFJS.workerSrc = 'pdf.worker.js';  
-  </script> -->
+    PDFJS.workerSrc = '../build/pdf.worker.js';  
+  </script>
 </head>
 <body tabindex="1">
   <div id="outerContainer">

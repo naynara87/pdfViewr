@@ -2937,6 +2937,12 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     width: 30px;
     height: 30px;
   }
+  .toolbarButton::before {
+    opacity: var(--toolbar-icon-opacity);
+    top: 2px;
+    left: 2px;
+  }
+
 }
 
 @media all and (max-width: 840px) {
