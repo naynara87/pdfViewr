@@ -2307,7 +2307,7 @@ html[dir="rtl"] .thumbnail {
 }
 
 .thumbnail:not([data-loaded]) {
-  border: 1px dashed rgba(132, 132, 132, 1);
+  /* border: 1px dashed rgba(132, 132, 132, 1); */
   margin: -1px 9px 25px;
 }
 
