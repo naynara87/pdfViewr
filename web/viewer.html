@@ -17,11 +17,11 @@
   <script src="viewer.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" crossorigin="anonymous"></script>
   <!-- NEED THIS for Safari Mac to render work -->
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     // Specify the main script used to create a new PDF.JS web worker.  
     // In production, change this to point to the combined `pdf.js` file.  
     PDFJS.workerSrc = '../build/pdf.worker.js';  
-  </script>
+  </script> -->
 </head>
 <body tabindex="1">
   <div id="outerContainer">
@@ -554,6 +554,7 @@
       console.log(viewer.style.transformOrigin)
     }, { passive: false });
 
+    const pinchMinScale = 3;
     const pinchMaxScale = 5;
 
     container.addEventListener("touchend", (e) => {
@@ -564,7 +565,7 @@
       viewer.style.transformOrigin = `unset`;
       const newPinchScale =
         PDFViewerApplication.pdfViewer.currentScale * pinchScale;
-      if (newPinchScale <= pinchMaxScale) {
+      if (newPinchScale <= pinchMaxScale && newPinchScale > pinchMinScale ) {
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
@@ -577,6 +578,7 @@
       reset();
     });
   }
+ 
   document.addEventListener('webviewerloaded', () => {
     if ('ontouchstart' in document) {
       pinchZoomEnabled = true;

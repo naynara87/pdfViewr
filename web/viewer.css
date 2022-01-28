@@ -833,9 +833,20 @@
   margin: 0 auto;
   border: 2px solid transparent;
 }
-
+.pageNum{
+  text-align: center;
+  margin-top: 5px;
+}
+.pageNum span{
+  text-align: center;
+  background: #fff;
+  color: #222;
+  padding: .2em 1em;
+  border-radius:5px;
+  font-size: 1.2rem;
+}
 :root {
-  --sidebar-width: 272px;
+  --sidebar-width: 260px;
   --sidebar-transition-duration: 200ms;
   --sidebar-transition-timing-function: ease;
   --scale-select-container-width: 140px;
@@ -2311,7 +2322,7 @@ html[dir="rtl"] .thumbnail {
 
 .thumbnailSelectionRing {
   border-radius: 2px;
-  padding: 7px;
+  padding: 4px;
 }
 
 a:focus > .thumbnail > .thumbnailSelectionRing > .thumbnailImage,
@@ -2919,6 +2930,15 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
 
 
 @media all and (max-width: 900px) {
+  #sidebarContainer {
+    top: 40px!important;
+  }
+  #sidebarContent {
+    top: 40px;
+  }
+  #toolbarSidebar{
+    height: 38px;
+  }
   #toolbarViewerMiddle {
     display: table;
     margin: auto;
@@ -2942,7 +2962,6 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     top: 2px;
     left: 2px;
   }
-
 }
 
 @media all and (max-width: 840px) {
@@ -2986,6 +3005,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
 }
 
 @media all and (max-width: 640px) {
+  
   .hiddenSmallView,
   .hiddenSmallView * {
     display: none;
@@ -3005,6 +3025,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
 }
 
 @media all and (max-width: 535px) {
+  #viewerContainer{margin-top: 40px;}
   #scaleSelectContainer {
     display: none;
   }
