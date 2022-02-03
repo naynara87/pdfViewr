@@ -1803,6 +1803,7 @@ html[dir="rtl"] #toolbarViewerLeft > .toolbarButton:first-child {
   width: var(--scale-select-container-width);
   padding: 0;
   overflow: hidden;
+  border-radius: 2px;
   /* background-color: var(--dropdown-btn-bg-color); */
   /* margin-top: 2px !important; */
 }
