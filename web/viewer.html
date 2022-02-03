@@ -525,8 +525,9 @@
 
   //모바일 터치 zoom 반영
 
-  var el = document.querySelector('#viewerContainer');
-  new PinchZoom.default(el, {});
+  Array.from(document.querySelectorAll('.page')).forEach(function(el) {
+        new PinchZoom.default(el, {});
+      });
   // let pinchZoomEnabled = false;
   // function enablePinchZoom(pdfViewer) {
   //   let startX = 0, startY = 0;

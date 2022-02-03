@@ -1193,7 +1193,7 @@ html[dir="rtl"] #sidebarContent {
   right: 0;
   bottom: 0;
   left: 0;
-  /* margin-top: 50px; */
+  margin-top: 50px;
   outline: none;
 }
 #viewerContainer::before, #viewerContainer::after {
