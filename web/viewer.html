@@ -561,7 +561,7 @@
     // }, { passive: false });
 
     const pinchMaxScale = 5;
-    const pinchMinScale = .8;
+    // const pinchMinScale = .8;
 
     container.addEventListener("touchend", (e) => {
       if (initialPinchDistance <= 0) {
@@ -571,7 +571,7 @@
       viewer.style.transformOrigin = `unset`;
       const newPinchScale =
         PDFViewerApplication.pdfViewer.currentScale * pinchScale;
-      if (newPinchScale <= pinchMaxScale && newPinchScale > pinchMinScale) {
+      if (newPinchScale <= pinchMaxScale) {
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
