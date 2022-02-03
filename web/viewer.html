@@ -22,6 +22,8 @@
     // In production, change this to point to the combined `pdf.js` file.  
     PDFJS.workerSrc = '../build/pdf.worker.js';  
   </script> -->
+  <!-- pinch zoom -->
+  <script type="text/javascript" src="pinch-zoom.umd.js"></script>
 </head>
 
 <body tabindex="1">
@@ -220,7 +222,7 @@
         <div id="toolbarContainer">
           <div id="toolbarViewer">
             <div id="toolbarViewerLeft">
-              <div class="bbc-logo">로고1</div>
+              <div class="bbc-logo"></div>
               <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11"
                 data-l10n-id="toggle_sidebar" aria-expanded="false" aria-controls="sidebarContainer">
                 <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
@@ -522,72 +524,75 @@
 
 
   //모바일 터치 zoom 반영
-  let pinchZoomEnabled = false;
-  function enablePinchZoom(pdfViewer) {
-    let startX = 0, startY = 0;
-    let initialPinchDistance = 0;
-    let pinchScale = 1;
-    const viewer = document.getElementById("viewer");
-    const container = document.getElementById("viewerContainer");
-    const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
-    // Prevent native iOS page zoom
-    //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
-    document.addEventListener("touchstart", (e) => {
-      if (e.touches.length > 1) {
-        startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
-        startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
-        initialPinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      } else {
-        initialPinchDistance = 0;
-      }
-    });
 
-    let lastPinchDistance = 0;
-    const pinchStepLength = 50;
+  var el = document.querySelector('.page');
+  new PinchZoom.default(el, {});
+  // let pinchZoomEnabled = false;
+  // function enablePinchZoom(pdfViewer) {
+  //   let startX = 0, startY = 0;
+  //   let initialPinchDistance = 0;
+  //   let pinchScale = 1;
+  //   const viewer = document.getElementById("viewer");
+  //   const container = document.getElementById("viewerContainer");
+  //   const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
+  //   // Prevent native iOS page zoom
+  //   //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
+  //   document.addEventListener("touchstart", (e) => {
+  //     if (e.touches.length > 1) {
+  //       startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
+  //       startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
+  //       initialPinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+  //     } else {
+  //       initialPinchDistance = 0;
+  //     }
+  //   });
 
-    document.addEventListener("touchmove", (e) => {
-      if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
-      if (e.scale !== 1) { e.preventDefault(); }
-      const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
-        return;
-      }
-      lastPinchDistance = pinchDistance;
-      const originX = startX + container.scrollLeft;
-      const originY = startY + container.scrollTop;
-      pinchScale = pinchDistance / initialPinchDistance;
-      // viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
-    }, { passive: false });
+  //   let lastPinchDistance = 0;
+  //   const pinchStepLength = 50;
 
-    const pinchMaxScale = 5;
-    // const pinchMinScale = .8;
+  //   document.addEventListener("touchmove", (e) => {
+  //     if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
+  //     if (e.scale !== 1) { e.preventDefault(); }
+  //     const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+  //     if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
+  //       return;
+  //     }
+  //     lastPinchDistance = pinchDistance;
+  //     const originX = startX + container.scrollLeft;
+  //     const originY = startY + container.scrollTop;
+  //     pinchScale = pinchDistance / initialPinchDistance;
+  //     // viewer.style.transform = `scale(${pinchScale})`;
+  //     // viewer.style.transformOrigin = `${originX}px ${originY}px`;
+  //   }, { passive: false });
 
-    container.addEventListener("touchend", (e) => {
-      if (initialPinchDistance <= 0) {
-        return;
-      }
-      viewer.style.transform = `none`;
-      viewer.style.transformOrigin = `unset`;
-      const newPinchScale =
-        PDFViewerApplication.pdfViewer.currentScale * pinchScale;
-      if (newPinchScale <= pinchMaxScale) {
-        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
-        const rect = container.getBoundingClientRect();
-        const dx = startX - rect.left;
-        const dy = startY - rect.top + 32;
-        container.scrollLeft += dx * (pinchScale - 1);
-        container.scrollTop += dy * (pinchScale - 1);
-      }
-      reset();
-    });
-  }
-  document.addEventListener('webviewerloaded', () => {
-    if (!pinchZoomEnabled) {
-      pinchZoomEnabled = true;
-      enablePinchZoom();
-    }
-  });
+  //   const pinchMaxScale = 5;
+  //   // const pinchMinScale = .8;
+
+  //   container.addEventListener("touchend", (e) => {
+  //     if (initialPinchDistance <= 0) {
+  //       return;
+  //     }
+  //     viewer.style.transform = `none`;
+  //     viewer.style.transformOrigin = `unset`;
+  //     const newPinchScale =
+  //       PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+  //     if (newPinchScale <= pinchMaxScale) {
+  //       PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
+  //       const rect = container.getBoundingClientRect();
+  //       const dx = startX - rect.left;
+  //       const dy = startY - rect.top + 32;
+  //       container.scrollLeft += dx * (pinchScale - 1);
+  //       container.scrollTop += dy * (pinchScale - 1);
+  //     }
+  //     reset();
+  //   });
+  // }
+  // document.addEventListener('webviewerloaded', () => {
+  //   if (!pinchZoomEnabled) {
+  //     pinchZoomEnabled = true;
+  //     enablePinchZoom();
+  //   }
+  // });
 
 
 </script>
