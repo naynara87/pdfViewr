@@ -220,7 +220,7 @@
         <div id="toolbarContainer">
           <div id="toolbarViewer">
             <div id="toolbarViewerLeft">
-              <div class="bbc-logo">로고8</div>
+              <div class="bbc-logo">로고9</div>
               <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11"
                 data-l10n-id="toggle_sidebar" aria-expanded="false" aria-controls="sidebarContainer">
                 <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
@@ -545,23 +545,23 @@
     let lastPinchDistance = 0;
     const pinchStepLength = 50;
 
-    document.addEventListener("touchmove", (e) => {
-      if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
-      if (e.scale !== 1) { e.preventDefault(); }
-      const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
-        return;
-      }
-      lastPinchDistance = pinchDistance;
-      const originX = startX + container.scrollLeft;
-      const originY = startY + container.scrollTop;
-      pinchScale = pinchDistance / initialPinchDistance;
-      // viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
-    }, { passive: false });
+    // document.addEventListener("touchmove", (e) => {
+    //   if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
+    //   if (e.scale !== 1) { e.preventDefault(); }
+    //   const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+    //   if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
+    //     return;
+    //   }
+    //   lastPinchDistance = pinchDistance;
+    //   const originX = startX + container.scrollLeft;
+    //   const originY = startY + container.scrollTop;
+    //   pinchScale = pinchDistance / initialPinchDistance;
+    //   // viewer.style.transform = `scale(${pinchScale})`;
+    //   // viewer.style.transformOrigin = `${originX}px ${originY}px`;
+    // }, { passive: false });
 
     const pinchMaxScale = 5;
-    const pinchMinScale = 1;
+    const pinchMinScale = .8;
 
     container.addEventListener("touchend", (e) => {
       if (initialPinchDistance <= 0) {
