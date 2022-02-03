@@ -845,6 +845,10 @@
   border-radius: 2px;
   font-size: 1.2rem;
 }
+.thumbnail.selected .pageNum span{
+  background: #556EE6;
+  color: #fff;
+}
 :root {
   --sidebar-width: 260px;
   --sidebar-transition-duration: 200ms;
