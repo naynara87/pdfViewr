@@ -220,7 +220,7 @@
         <div id="toolbarContainer">
           <div id="toolbarViewer">
             <div id="toolbarViewerLeft">
-              <div class="bbc-logo">로고7</div>
+              <div class="bbc-logo">로고8</div>
               <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11"
                 data-l10n-id="toggle_sidebar" aria-expanded="false" aria-controls="sidebarContainer">
                 <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
@@ -571,7 +571,7 @@
       viewer.style.transformOrigin = `unset`;
       const newPinchScale =
         PDFViewerApplication.pdfViewer.currentScale * pinchScale;
-      if (newPinchScale <= pinchMaxScale || newPinchScale >= pinchMinScale) {
+      if (newPinchScale <= pinchMaxScale && newPinchScale > pinchMinScale) {
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
