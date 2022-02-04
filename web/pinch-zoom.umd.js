@@ -656,8 +656,12 @@
                 this.el.parentNode.insertBefore(this.container, this.el);
                 this.container.appendChild(this.el);
 
-                this.container.style.overflow = 'hidden';
+                this.container.style.overflow = 'scroll';
                 this.container.style.position = 'relative';
+
+                this.container.style.display = 'flex';
+                this.container.style.alignItems="center";
+                this.container.style.flexDirection="column";
 
                 this.el.style.webkitTransformOrigin = '0% 0%';
                 this.el.style.mozTransformOrigin = '0% 0%';
@@ -666,6 +670,7 @@
                 this.el.style.transformOrigin = '0% 0%';
 
                 this.el.style.position = 'absolute';
+                
             },
 
             end: function end() {
