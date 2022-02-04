@@ -659,9 +659,9 @@
                 this.container.style.overflow = 'scroll';
                 this.container.style.position = 'relative';
 
-                this.container.style.display = 'flex';
-                this.container.style.alignItems="center";
-                this.container.style.flexDirection="column";
+                // this.container.style.display = 'flex';
+                // this.container.style.alignItems="center";
+                // this.container.style.flexDirection="column";
 
                 this.el.style.webkitTransformOrigin = '0% 0%';
                 this.el.style.mozTransformOrigin = '0% 0%';
