@@ -1186,7 +1186,7 @@ html[dir="rtl"] #sidebarContent {
 }
 
 #viewerContainer {
-  overflow: hidden;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: absolute;
   top: 0px;
