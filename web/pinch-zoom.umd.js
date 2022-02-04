@@ -656,12 +656,8 @@
                 this.el.parentNode.insertBefore(this.container, this.el);
                 this.container.appendChild(this.el);
 
-                this.container.style.overflow = 'scroll'; 
+                this.container.style.overflow = 'hidden';
                 this.container.style.position = 'relative';
-                this.container.style.display = 'flex'; //추가
-                this.container.style.alignItems = "center"; //추가
-                this.container.style.flexDirection ="column"; //추가
-                // this.container.style.height = "auto"; //추가
 
                 this.el.style.webkitTransformOrigin = '0% 0%';
                 this.el.style.mozTransformOrigin = '0% 0%';
