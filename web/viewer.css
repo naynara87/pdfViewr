@@ -842,8 +842,12 @@
   background: #fff;
   color: #222;
   padding: .2em 1em;
-  border-radius:5px;
+  border-radius: 2px;
   font-size: 1.2rem;
+}
+.thumbnail.selected .pageNum span{
+  background: #556EE6;
+  color: #fff;
 }
 :root {
   --sidebar-width: 260px;
@@ -1799,6 +1803,7 @@ html[dir="rtl"] #toolbarViewerLeft > .toolbarButton:first-child {
   width: var(--scale-select-container-width);
   padding: 0;
   overflow: hidden;
+  border-radius: 2px;
   /* background-color: var(--dropdown-btn-bg-color); */
   /* margin-top: 2px !important; */
 }
