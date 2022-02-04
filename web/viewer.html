@@ -222,7 +222,7 @@
         <div id="toolbarContainer">
           <div id="toolbarViewer">
             <div id="toolbarViewerLeft">
-              <div class="bbc-logo">test1</div>
+              <div class="bbc-logo">test2</div>
               <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11"
                 data-l10n-id="toggle_sidebar" aria-expanded="false" aria-controls="sidebarContainer">
                 <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
@@ -525,9 +525,7 @@
 
   //모바일 터치 zoom 반영
 
-  Array.from(document.querySelectorAll('.page')).forEach(function(el) {
-        new PinchZoom.default(el, {});
-      });
+  new window.PinchZoom.default(document.querySelector('div.page'), {});
   // let pinchZoomEnabled = false;
   // function enablePinchZoom(pdfViewer) {
   //   let startX = 0, startY = 0;
