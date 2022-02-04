@@ -656,12 +656,8 @@
                 this.el.parentNode.insertBefore(this.container, this.el);
                 this.container.appendChild(this.el);
 
-                this.container.style.overflow = 'scroll';
+                this.container.style.overflow = 'hidden';
                 this.container.style.position = 'relative';
-
-                // this.container.style.display = 'flex';
-                // this.container.style.alignItems="center";
-                // this.container.style.flexDirection="column";
 
                 this.el.style.webkitTransformOrigin = '0% 0%';
                 this.el.style.mozTransformOrigin = '0% 0%';
@@ -670,7 +666,6 @@
                 this.el.style.transformOrigin = '0% 0%';
 
                 this.el.style.position = 'absolute';
-                
             },
 
             end: function end() {
@@ -722,7 +717,7 @@
                         offsetX = -this.offset.x / zoomFactor,
                         offsetY = -this.offset.y / zoomFactor,
                         transform3d = 'scale3d(' + zoomFactor + ', ' + zoomFactor + ',1) ' + 'translate3d(' + offsetX + 'px,' + offsetY + 'px,0px)',
-                        // transform2d = 'scale(' + zoomFactor + ', ' + zoomFactor + ') ' + 'translate(' + offsetX + 'px,' + offsetY + 'px)',
+                        transform2d = 'scale(' + zoomFactor + ', ' + zoomFactor + ') ' + 'translate(' + offsetX + 'px,' + offsetY + 'px)',
                         removeClone = function () {
                         if (this.clone) {
                             this.clone.parentNode.removeChild(this.clone);

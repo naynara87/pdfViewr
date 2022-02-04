@@ -523,7 +523,11 @@
 
 
   //모바일 터치 zoom 반영
-
+  new window.PinchZoom.default(document.getElementById("viewerContainer"), {
+        minZoom: 0.8, 
+        maxZoom:10,
+        lockDragAxis:true
+    });
 
   //   let pinchZoomEnabled = false;
   //   function enablePinchZoom(pdfViewer) {
@@ -594,11 +598,6 @@
   //   }
   // });
 
-  new window.PinchZoom.default(document.querySelector('#viewer'), {
-        minZoom: 0.8, 
-        maxZoom:10,
-        lockDragAxis:true
-  });
 
 </script>
 
