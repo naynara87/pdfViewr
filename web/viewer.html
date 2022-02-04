@@ -346,7 +346,7 @@
       </div>
 
       <div id="viewerContainer" tabindex="0">
-        <div id="testTxt" style="position: fixed;  top:60px; right:20px; ">수치계산</div>
+        <div id="testTxt" style="position: fixed;  top:60px; right:20px; z-index: 99; background-color:#fff">수치계산</div>
         <div id="viewer" class="pdfViewer"></div>
       </div>
 
@@ -579,8 +579,10 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
       viewer.style.transition =`2s linear`;
-      const newPinchScale = PDFViewerApplication.pdfViewer.currentScale * pinchScale;
-      testTxt.innerHTML = newPinchScale;
+      const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale);
+      
+      testTxt.innerText = newPinchScale;
+
       if (newPinchScale <= pinchMaxScale) {
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
