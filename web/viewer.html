@@ -564,13 +564,15 @@
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
-      viewer.style.animation =`2s linear`;
+      viewer.style.transition =`scale 2s linear`;
+
+      testTxt.innerText = pinchDistance;
       // viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
     }, { passive: false });
 
     const pinchMaxScale = 5;
-    const pinchMinScale = 0.7;
+    const pinchMinScale = 0.8;
 
     container.addEventListener("touchend", (e) => {
       if (initialPinchDistance <= 0) {
@@ -580,8 +582,6 @@
       viewer.style.transformOrigin = `unset`;
       viewer.style.transition =`2s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
-      
-      testTxt.innerText = newPinchScale;
 
       if (newPinchScale <= pinchMaxScale) {
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
