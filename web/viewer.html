@@ -22,7 +22,8 @@
     PDFJS.workerSrc = '../build/pdf.worker.js';  
   </script> -->
   <!-- pinch zoom -->
-  <script type="text/javascript" src="pinch-zoom.umd.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+  <!-- <script type="text/javascript" src="pinch-zoom.umd.js"></script> -->
 </head>
 
 <body tabindex="1">
@@ -523,77 +524,223 @@
 
 
   //모바일 터치 zoom 반영
+  const imageContainer = document.getElementById("viewerContainer");
+
+  let minScale = 1;
+  let maxScale = 4;
+  let imageWidth;
+  let imageHeight;
+  let containerWidth;
+  let containerHeight;
+  let displayImageX = 0;
+  let displayImageY = 0;
+  let displayImageScale = 1;
+
+  let displayDefaultWidth;
+  let displayDefaultHeight;
+
+  let rangeX = 0;
+  let rangeMaxX = 0;
+  let rangeMinX = 0;
+
+  let rangeY = 0;
+  let rangeMaxY = 0;
+  let rangeMinY = 0;
+
+  let displayImageRangeY = 0;
+
+  let displayImageCurrentX = 0;
+  let displayImageCurrentY = 0;
+  let displayImageCurrentScale = 1;
 
 
-    let pinchZoomEnabled = false;
-    function enablePinchZoom(pdfViewer) {
-    let startX = 0, startY = 0;
-    let initialPinchDistance = 0;
-    let pinchScale = 1;
-    const viewer = document.getElementById("viewer");
-    const container = document.getElementById("viewerContainer");
-    const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
-    // Prevent native iOS page zoom
-    //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
-    
-    
-    document.addEventListener("touchstart", (e) => {
-      if (e.touches.length > 1) {
-        startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
-        startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
-        initialPinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      } else {
-        initialPinchDistance = 0;
-      }
-    });
-
-    let lastPinchDistance = 0;
-    const pinchStepLength = 20;
-
-    document.addEventListener("touchmove", (e) => {
-      if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
-      if (e.scale !== 1) { e.preventDefault(); }
-      const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
-        return;
-      }
-      lastPinchDistance = pinchDistance;
-      const originX = startX + container.scrollLeft;
-      const originY = startY + container.scrollTop;
-      pinchScale = pinchDistance / initialPinchDistance;
-      viewer.style.transition =`2s linear`;
-      // viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
-    }, { passive: false });
-
-    const pinchMaxScale = 5;
-    // const pinchMinScale = .8;
-
-    container.addEventListener("touchend", (e) => {
-      if (initialPinchDistance <= 0) {
-        return;
-      }
-      viewer.style.transform = `none`;
-      viewer.style.transformOrigin = `unset`;
-      const newPinchScale =
-        PDFViewerApplication.pdfViewer.currentScale * pinchScale;
-      if (newPinchScale <= pinchMaxScale) {
-        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
-        const rect = container.getBoundingClientRect();
-        const dx = startX - rect.left;
-        const dy = startY - rect.top + 32;
-        container.scrollLeft += dx * (pinchScale - 1);
-        container.scrollTop += dy * (pinchScale - 1);
-      }
-      reset();
-    });
-  }
-  document.addEventListener('webviewerloaded', () => {
-    if (!pinchZoomEnabled) {
-      pinchZoomEnabled = true;
-      enablePinchZoom();
+  function resizeContainer() {
+    containerWidth = imageContainer.offsetWidth;
+    containerHeight = imageContainer.offsetHeight;
+    if (displayDefaultWidth !== undefined && displayDefaultHeight !== undefined) {
+      displayDefaultWidth = displayImage.offsetWidth;
+      displayDefaultHeight = displayImage.offsetHeight;
+      updateRange();
+      displayImageCurrentX = clamp( displayImageX, rangeMinX, rangeMaxX );
+      displayImageCurrentY = clamp( displayImageY, rangeMinY, rangeMaxY );
+      updateDisplayImage(
+        displayImageCurrentX,
+        displayImageCurrentY,
+        displayImageCurrentScale );
     }
+  }
+
+  resizeContainer();
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(min, value), max);
+  }
+
+  function clampScale(newScale) {
+    return clamp(newScale, minScale, maxScale);
+  }
+
+  window.addEventListener('resize', resizeContainer, true);
+
+  const displayImage = new Image();
+  displayImage.src = imageUrl;
+  displayImage.onload = function(){
+    imageWidth = displayImage.width;
+    imageHeight = displayImage.height;
+    imageContainer.appendChild(displayImage);
+    displayImage.addEventListener('mousedown', e => e.preventDefault(), false);
+    displayDefaultWidth = displayImage.offsetWidth;
+    displayDefaultHeight = displayImage.offsetHeight;
+    rangeX = Math.max(0, displayDefaultWidth - containerWidth);
+    rangeY = Math.max(0, displayDefaultHeight - containerHeight);
+  }
+
+  imageContainer.addEventListener('wheel', e => {
+    displayImageScale = displayImageCurrentScale = clampScale(displayImageScale + (e.wheelDelta / 800));
+    updateRange();
+    displayImageCurrentX = clamp(displayImageCurrentX, rangeMinX, rangeMaxX)
+    displayImageCurrentY = clamp(displayImageCurrentY, rangeMinY, rangeMaxY)
+    updateDisplayImage(displayImageCurrentX, displayImageCurrentY, displayImageScale);  
+  }, false);
+
+  function updateDisplayImage(x, y, scale) {
+    const transform = 'translateX(' + x + 'px) translateY(' + y + 'px) translateZ(0px) scale(' + scale + ',' + scale + ')';
+    displayImage.style.transform = transform;
+    displayImage.style.WebkitTransform = transform;
+    displayImage.style.msTransform = transform;
+    updateHud();
+  }
+
+  function updateRange() {
+    rangeX = Math.max(0, Math.round(displayDefaultWidth * displayImageCurrentScale) - containerWidth);
+    rangeY = Math.max(0, Math.round(displayDefaultHeight * displayImageCurrentScale) - containerHeight);
+    
+    rangeMaxX = Math.round(rangeX / 2);
+    rangeMinX = 0 - rangeMaxX;
+
+    rangeMaxY = Math.round(rangeY / 2);
+    rangeMinY = 0 - rangeMaxY;
+  }
+
+  function updateHud() {
+    let hudText = `<pre>
+  <b>Current</b>
+  <b>Scale:</b>     ${displayImageCurrentScale.toFixed(4)}
+  <b>X:</b>         ${displayImageCurrentX}
+  <b>Y:</b>         ${displayImageCurrentY}
+
+  <b>Range</b>
+  <b>rangeX:</b>    ${rangeX}
+  <b>rangeMinX:</b> ${rangeMinX}
+  <b>rangeMaxX:</b> ${rangeMaxX}
+
+  <b>rangeY:</b>    ${rangeY}
+  <b>rangeMinY:</b> ${rangeMinY}
+  <b>rangeMaxY:</b> ${rangeMaxY}
+
+  <b>Updated</b>
+  <b>Scale:</b>     ${displayImageScale.toFixed(4)}
+  <b>X:</b>         ${displayImageX}
+  <b>Y:</b>         ${displayImageY}
+  </pre>`;
+    hud.innerHTML = hudText;
+  }
+
+  const hammertime = new Hammer(imageContainer);
+
+  hammertime.get('pinch').set({ enable: true });
+  hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+
+  hammertime.on('pan', ev => {  
+    displayImageCurrentX = clamp(displayImageX + ev.deltaX, rangeMinX, rangeMaxX);
+    displayImageCurrentY = clamp(displayImageY + ev.deltaY, rangeMinY, rangeMaxY);
+    updateDisplayImage(displayImageCurrentX, displayImageCurrentY, displayImageScale);
   });
+
+  hammertime.on('pinch pinchmove', ev => {
+    displayImageCurrentScale = clampScale(ev.scale * displayImageScale);
+    updateRange();
+    displayImageCurrentX = clamp(displayImageX + ev.deltaX, rangeMinX, rangeMaxX);
+    displayImageCurrentY = clamp(displayImageY + ev.deltaY, rangeMinY, rangeMaxY);
+    updateDisplayImage(displayImageCurrentX, displayImageCurrentY, displayImageCurrentScale);
+  });
+
+  hammertime.on('panend pancancel pinchend pinchcancel', () => {
+    displayImageScale = displayImageCurrentScale;
+    displayImageX = displayImageCurrentX;
+    displayImageY = displayImageCurrentY;
+  });  
+
+  //   let pinchZoomEnabled = false;
+  //   function enablePinchZoom(pdfViewer) {
+  //   let startX = 0, startY = 0;
+  //   let initialPinchDistance = 0;
+  //   let pinchScale = 1;
+  //   const viewer = document.getElementById("viewer");
+  //   const container = document.getElementById("viewerContainer");
+  //   const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
+  //   // Prevent native iOS page zoom
+  //   //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
+    
+    
+  //   document.addEventListener("touchstart", (e) => {
+  //     if (e.touches.length > 1) {
+  //       startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
+  //       startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
+  //       initialPinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+  //     } else {
+  //       initialPinchDistance = 0;
+  //     }
+  //   });
+
+  //   let lastPinchDistance = 0;
+  //   const pinchStepLength = 20;
+
+  //   document.addEventListener("touchmove", (e) => {
+  //     if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
+  //     if (e.scale !== 1) { e.preventDefault(); }
+  //     const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+  //     if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
+  //       return;
+  //     }
+  //     lastPinchDistance = pinchDistance;
+  //     const originX = startX + container.scrollLeft;
+  //     const originY = startY + container.scrollTop;
+  //     pinchScale = pinchDistance / initialPinchDistance;
+  //     viewer.style.transition =`2s linear`;
+  //     // viewer.style.transform = `scale(${pinchScale})`;
+  //     // viewer.style.transformOrigin = `${originX}px ${originY}px`;
+  //   }, { passive: false });
+
+  //   const pinchMaxScale = 5;
+  //   // const pinchMinScale = .8;
+
+  //   container.addEventListener("touchend", (e) => {
+  //     if (initialPinchDistance <= 0) {
+  //       return;
+  //     }
+  //     viewer.style.transform = `none`;
+  //     viewer.style.transformOrigin = `unset`;
+  //     viewer.style.transition =`2s linear`;
+  //     const newPinchScale =
+  //       PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+  //     if (newPinchScale <= pinchMaxScale) {
+  //       PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
+  //       const rect = container.getBoundingClientRect();
+  //       const dx = startX - rect.left;
+  //       const dy = startY - rect.top + 32;
+  //       container.scrollLeft += dx * (pinchScale - 1);
+  //       container.scrollTop += dy * (pinchScale - 1);
+  //     }
+  //     reset();
+  //   });
+  // }
+  // document.addEventListener('webviewerloaded', () => {
+  //   if (!pinchZoomEnabled) {
+  //     pinchZoomEnabled = true;
+  //     enablePinchZoom();
+  //   }
+  // });
 
 
 </script>
