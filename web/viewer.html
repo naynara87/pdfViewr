@@ -564,11 +564,11 @@
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
-      viewer.style.transition = `scale 2s linear`;
+      // viewer.style.transition = `scale 2s linear`;
 
       testTxt.innerText = pinchDistance;
-      viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      // viewer.style.transform = `scale(${pinchScale})`;
+      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
     }, { passive: false });
 
     const pinchMaxScale = 5;
