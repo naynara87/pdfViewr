@@ -11415,14 +11415,14 @@ class BaseViewer {
       this.#ensurePageViewVisible();
       console.log('page center');
       // 페이지 센터 추가
-      // viewerContainer.style.display = 'flex';
-      // viewerContainer.style.alignItems="center";
-      // viewerContainer.style.flexDirection="column";
+      viewerContainer.style.display = 'flex';
+      viewerContainer.style.alignItems="center";
+      viewerContainer.style.flexDirection="column";
     } else if (this._previousScrollMode === _ui_utils.ScrollMode.PAGE || _ui_utils.ScrollMode.WRAPPED) {
       this._updateSpreadMode();
-      // viewerContainer.style.display = 'block';
-      // viewerContainer.style.alignItems="none";
-      // viewerContainer.style.flexDirection="none";
+      viewerContainer.style.display = 'block';
+      viewerContainer.style.alignItems="none";
+      viewerContainer.style.flexDirection="none";
 
     }
 
