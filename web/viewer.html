@@ -579,7 +579,7 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
       viewer.style.transition =`2s linear`;
-      const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 100) / 100;
+      const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
       
       testTxt.innerText = newPinchScale;
 
