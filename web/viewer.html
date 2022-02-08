@@ -569,9 +569,9 @@
       pinchScale = pinchDistance / initialPinchDistance;
       
 
-      // viewer.style.transition = `scale 2s linear`;
-      // viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
+      viewer.style.transition = `scale 2s linear`;
+      viewer.style.transform = `scale(${pinchScale})`;
+      viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       viewer.style.transformOrigin = `0px 0px`;
     }, { passive: false });
@@ -583,9 +583,9 @@
       if (initialPinchDistance <= 0) {
         return;
       }
-      viewer.style.transform = `none`;
-      viewer.style.transformOrigin = `unset`;
-      viewer.style.transition = `2s linear`;
+      // viewer.style.transform = `none`;
+      // viewer.style.transformOrigin = `unset`;
+      // viewer.style.transition = `.5s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
 
       if (newPinchScale <= pinchMaxScale) {
