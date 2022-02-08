@@ -222,7 +222,7 @@
         <div id="toolbarContainer">
           <div id="toolbarViewer">
             <div id="toolbarViewerLeft">
-              <div class="bbc-logo">수정</div>
+              <div class="bbc-logo">수정1</div>
               <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11"
                 data-l10n-id="toggle_sidebar" aria-expanded="false" aria-controls="sidebarContainer">
                 <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
@@ -564,11 +564,11 @@
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
-      viewer.style.transition = `scale 2s linear`;
+      // viewer.style.transition = `scale 2s linear`;
 
       testTxt.innerText = pinchDistance;
       viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      viewer.style.transformOrigin = `${originX}px ${originY}px`;
     }, { passive: false });
 
     const pinchMaxScale = 5;
