@@ -561,14 +561,16 @@
         return;
       }
       lastPinchDistance = pinchDistance;
-      const originX = startX + container.scrollLeft;
-      const originY = startY + container.scrollTop;
+      // const originX = startX + container.scrollLeft;
+      // const originY = startY + container.scrollTop;
+      const originX = container.scrollLeft;
+      const originY = container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
       // viewer.style.transition = `scale 2s linear`;
 
       testTxt.innerText = `${originX}px ${originY}px`;
-      // viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      viewer.style.transform = `scale(${pinchScale})`;
+      viewer.style.transformOrigin = `${originX}px ${originY}px`;
       viewer.style.transformOrigin = `0px 0px`;
     }, { passive: false });
 
