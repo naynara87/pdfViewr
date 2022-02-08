@@ -566,8 +566,8 @@
       pinchScale = pinchDistance / initialPinchDistance;
       // viewer.style.transition = `scale 2s linear`;
 
-      testTxt.innerText = pinchDistance;
-      viewer.style.transform = `scale(${pinchScale})`;
+      testTxt.innerText = originX;
+      // viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       viewer.style.transformOrigin = `0px 0px`;
     }, { passive: false });
