@@ -569,12 +569,7 @@
       pinchScale = pinchDistance / initialPinchDistance;
       
 
-      const rect = container.getBoundingClientRect();
-      const dx = startX - rect.left;
-      const dy = startY - rect.top + 32;
-      container.scrollLeft += dx * (pinchScale - 1);
-      container.scrollTop += dy * (pinchScale - 1);
-      container.style.transition = `scale 2s linear`;
+      // viewer.style.transition = `scale 2s linear`;
       // viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
