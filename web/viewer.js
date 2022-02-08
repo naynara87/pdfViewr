@@ -15721,6 +15721,7 @@ function getViewerConfiguration() {
     appContainer: document.body,
     mainContainer: document.getElementById("viewerContainer"),
     viewerContainer: document.getElementById("viewer"),
+    viewerWrap: document.getElementById("viewerWrap"),
     eventBus: null,
     toolbar: {
       container: document.getElementById("toolbarViewer"),

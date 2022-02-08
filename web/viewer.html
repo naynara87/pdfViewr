@@ -346,8 +346,10 @@
       </div>
 
       <div id="viewerContainer" tabindex="0">
-        <div id="testTxt" style="position: fixed;  top:60px; right:20px; z-index: 99; background-color:#fff">수치계산</div>
-        <div id="viewer" class="pdfViewer"></div>
+        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">수치계산</div>
+        <div id="viewer" class="pdfViewer">
+          <div id="viewerWrap"></div>
+        </div>
       </div>
 
       <div id="errorWrapper" hidden='true'>
@@ -568,14 +570,15 @@
       pinchScale = pinchDistance / initialPinchDistance;
       // viewer.style.transition = `scale 2s linear`;
 
-      testTxt.innerText = `${originX}px ${originY}px`;
+      testTxt.innerText = `${originX}px ${originY}px scale(${pinchScale})`;
       viewer.style.transform = `scale(${pinchScale})`;
+      viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       viewer.style.transformOrigin = `0px 0px`;
     }, { passive: false });
 
     const pinchMaxScale = 5;
-    const pinchMinScale = 1.2;
+    const pinchMinScale = 0.8;
 
     container.addEventListener("touchend", (e) => {
       if (initialPinchDistance <= 0) {
