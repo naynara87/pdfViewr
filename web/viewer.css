@@ -685,7 +685,7 @@
 
 .pdfViewer {
   padding-bottom: var(--pdfViewer-padding-bottom);
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .pdfViewer .canvasWrapper {
@@ -710,7 +710,7 @@
   direction: ltr;
   width: 816px;
   height: 1056px;
-  margin: var(--page-margin);
+  /* margin: var(--page-margin); */
   position: relative;
   overflow: visible;
   /* margin: 10px auto 3px; */
@@ -1195,6 +1195,7 @@ html[dir="rtl"] #sidebarContent {
   left: 0;
   margin-top: 50px;
   outline: none;
+  display: flex;
 }
 #viewerContainer::before, #viewerContainer::after {
   content: '';
