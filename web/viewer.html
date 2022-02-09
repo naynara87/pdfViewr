@@ -562,10 +562,12 @@
         return;
       }
       lastPinchDistance = pinchDistance;
-      // const originX = startX + container.scrollLeft;
-      // const originY = startY + container.scrollTop;
-      const originX = container.scrollLeft;
-      const originY = container.scrollTop;
+
+      var viewerText = document.getElementById('viewer');
+      viewerText.innerHTML = '<span>'+ pinchDistance +'</span>';
+      const originX = startX + container.scrollLeft;
+      const originY = startY + container.scrollTop;
+
       pinchScale = pinchDistance / initialPinchDistance;
       viewer.style.transition = `.2s linear`;
       viewer.style.transform = `scale(${pinchScale})`;
