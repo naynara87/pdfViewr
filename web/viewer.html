@@ -573,7 +573,7 @@
 
       pinchScale = pinchDistance / initialPinchDistance;
       viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
+      viewer.style.transform = `trnaslate(${tx}px, ${ty}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       // viewer.style.transformOrigin = `0px 0px`;
     }, { passive: false });
