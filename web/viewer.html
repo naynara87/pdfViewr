@@ -563,7 +563,7 @@
       }
       lastPinchDistance = pinchDistance;
 
-      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정5</span>';
+      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정6</span>';
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop - 32;
 
@@ -598,7 +598,7 @@
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
-        const dy = startY - rect.top + 32;
+        const dy = startY - rect.top;
         
         // container.scrollLeft += dx * (pinchScale - 1);
         // container.scrollTop += dy * (pinchScale - 1);
