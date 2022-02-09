@@ -565,19 +565,20 @@
         return;
       }
       lastPinchDistance = pinchDistance;
-      const originX = startX + container.scrollLeft;       
-      const originY = container.scrollTop + 32;
+      const originX = container.scrollLeft;       
+      const originY = container.scrollTop + 38;
       // const originX = startX ;
       // const originY = startY ;
       pinchScale = pinchDistance / initialPinchDistance; 
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      testTxt.innerHTML = '<span>('+  window.innerWidth +' /윈도우사이즈,'+ clientWidth +'/캔퍼스사이즈)4</span>';
+      testTxt.innerHTML = '<span>('+  window.innerWidth +' /윈도우사이즈,'+ clientWidth +'/캔퍼스사이즈)1</span>';
       
-      // if ( window.innerWidth <= page.clientWidth) {
-      //   // viewer.style.transform = `trnaslate(${container.scrollLeft}px, ${container.scrollTop}px)`;
-      // // viewer.style.transformOrigin = `0px 0px`;
-      // }
+      if ( window.innerWidth <= page.clientWidth) {
+         viewer.style.transformOrigin = `${originX}px ${originY}px`;
+        // viewer.style.transform = `trnaslate(${container.scrollLeft}px, ${container.scrollTop}px)`;
+      // viewer.style.transformOrigin = `0px 0px`;
+      }
       
       
     }, { passive: false });
