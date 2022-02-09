@@ -568,7 +568,6 @@
       const originY = startY + container.scrollTop;
 
       pinchScale = pinchDistance / initialPinchDistance;
-      viewer.style.transition = `.2s linear`;
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
       viewer.style.transformOrigin = `${originX}px ${originY}px`;
@@ -584,7 +583,7 @@
       }
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
-      viewer.style.transition = `.2s linear`;
+      viewer.style.transition = `.1s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
 
       if (newPinchScale <= pinchMaxScale) {
