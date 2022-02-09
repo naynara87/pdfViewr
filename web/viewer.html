@@ -569,6 +569,9 @@
 
 
       pinchScale = pinchDistance / initialPinchDistance;
+      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정7</span>';
+      viewer.style.transformOrigin = `50% ${originY}px`;
+
 
       viewer.style.transform = `scale(${pinchScale})`;
       
