@@ -563,8 +563,8 @@
       }
       lastPinchDistance = pinchDistance;
 
-      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정4</span>';
-      // const originX = startX + container.scrollLeft;
+      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정5</span>';
+      const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop - 32;
 
 
@@ -572,7 +572,10 @@
 
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transformOrigin = `50% ${originY}px`;
-
+      if(viewer.clientWidth >= window.innerWidth){
+        testTxt.innerHTML = '<span>화면이 꽉찼습니다.</span>';
+        viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      }
       // viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
