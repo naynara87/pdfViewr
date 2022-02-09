@@ -562,30 +562,16 @@
         return;
       }
       lastPinchDistance = pinchDistance;
-
-      
-      const originX = startX + container.scrollLeft;
-      const originY = startY + container.scrollTop;
-
+      // const originX = startX + container.scrollLeft;
+      // const originY = startY + container.scrollTop;
+      const originX = container.scrollLeft;
+      const originY = container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
-      testTxt.innerHTML = '<span>'+ page.clientWidth +'수정9</span>';
+      viewer.style.transition = `.5s linear`;
       viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `50% ${originY}px`;
-      
-      
-      if(page.clientWidth >= window.innerWidth){
-        testTxt.innerHTML = '<span>2화면이 꽉찼습니다.</span>';
-        viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      }else{
-        return;
-      }
-
-      
-      
-      // viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
+      viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      // viewer.style.transformOrigin = `0px 0px`;
+      viewer.style.transformOrigin = `0px 0px`;
     }, { passive: false });
 
     const pinchMaxScale = 5;
@@ -595,16 +581,16 @@
       if (initialPinchDistance <= 0) {
         return;
       }
-      viewer.style.transform = `none`;
-      viewer.style.transformOrigin = `unset`;
-      // viewer.style.transition = `.1s linear`;
+      // viewer.style.transform = `none`;
+      // viewer.style.transformOrigin = `unset`;
+      viewer.style.transition = `.5s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
-      PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
 
       if (newPinchScale <= pinchMaxScale) {
+        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
-        const dy = startY - rect.top;
+        const dy = startY - rect.top + 32;
         
         // container.scrollLeft += dx * (pinchScale - 1);
         // container.scrollTop += dy * (pinchScale - 1);
@@ -613,7 +599,7 @@
       } else if (newPinchScale > pinchMinScale) {
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
-        const dy = startY - rect.top;
+        const dy = startY - rect.top + 32;
         // container.scrollLeft -= dx * (pinchScale - 1);
         // container.scrollTop -= dy * (pinchScale - 1);
       }
