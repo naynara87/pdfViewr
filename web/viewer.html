@@ -558,11 +558,16 @@
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
       if (e.scale !== 1) { e.preventDefault(); }
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      const originX = startX + container.scrollLeft;
-      const originY = startY + container.scrollTop;
+      const rect = container.getBoundingClientRect();
+      const originX = startX - rect.left;
+      const originY = startY - rect.top;
       pinchScale = pinchDistance / initialPinchDistance;
+
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transformOrigin = `${originX}px ${originY}px`;
+
+      
+
     }, { passive: false });
 
     const pinchMaxScale = 5;
