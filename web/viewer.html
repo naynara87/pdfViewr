@@ -558,31 +558,11 @@
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
       if (e.scale !== 1) { e.preventDefault(); }
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
-        return;
-      }
-      lastPinchDistance = pinchDistance;
-      // const originX = startX + container.scrollLeft;
-      // const originY = startY + container.scrollTop;
-      const originX = container.scrollLeft;
-      const originY = container.scrollTop;
+      const originX = startX + container.scrollLeft;
+      const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
       // viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      testTxt.innerHTML = '<span>'+ page.clientWidth +'수정9</span>';
-      viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `50% ${originY}px`;
-      
-      
-      if(page.clientWidth >= window.innerWidth){
-        testTxt.innerHTML = '<span>2화면이 꽉찼습니다.</span>';
-        viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      }else{
-        return;
-      }
-
-
     }, { passive: false });
 
     const pinchMaxScale = 5;
@@ -596,28 +576,29 @@
       viewer.style.transformOrigin = `unset`;
       viewer.style.transition = `.1s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
+      // Compute the current center point in page coordinates
+      const pageCenterX = this.rootElement.nativeElement.clientWidth / 2 + this.rootElement.nativeElement.scrollLeft;
+      const pageCenterY = this.rootElement.nativeElement.clientHeight / 2 + this.rootElement.nativeElement.scrollTop;
 
-      if (newPinchScale <= pinchMaxScale) {
-        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
-        const rect = container.getBoundingClientRect();
-        const dx = startX - rect.left;
-        const dy = startY - rect.top + 32;
-        
-        // container.scrollLeft += dx * (pinchScale - 1);
-        // container.scrollTop += dy * (pinchScale - 1);
-        
-        // }
-      } else if (newPinchScale > pinchMinScale) {
-        const rect = container.getBoundingClientRect();
-        const dx = startX - rect.left;
-        const dy = startY - rect.top + 32;
-        // container.scrollLeft -= dx * (pinchScale - 1);
-        // container.scrollTop -= dy * (pinchScale - 1);
-      }
+      // Compute the next center point in page coordinates
+      const centerX = (pageCenterX - this.originX) / pinchScale + this.originX;
+      const centerY = (pageCenterY - this.originY) / pinchScale + this.originY;
+
+      // Compute the ratios of the center point to the total scrollWidth/scrollHeight
+      const px = centerX / this.rootElement.nativeElement.scrollWidth;
+      const py = centerY / this.rootElement.nativeElement.scrollHeight;
+
+      // Scale
+      PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
+
+      // Set the scrollbar positions using the percentages and the new scrollWidth/scrollHeight
+      this.rootElement.nativeElement.scrollLeft = this.rootElement.nativeElement.scrollWidth * px - this.rootElement.nativeElement.clientWidth / 2;
+      this.rootElement.nativeElement.scrollTop = this.rootElement.nativeElement.scrollHeight * py - this.rootElement.nativeElement.clientHeight / 2;
+      
       reset();
     });
   }
-  
+
   document.addEventListener('webviewerloaded', () => {
     if (!pinchZoomEnabled) {
       pinchZoomEnabled = true;
