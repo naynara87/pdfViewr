@@ -564,10 +564,7 @@
         return;
       }
       lastPinchDistance = pinchDistance;
-      // if (newPinchScale <= pinchMaxScale) {
-        
-      // }
-      testTxt.innerHTML = '<span>('+ container.scrollLef + ',' + container.scrollTop + pinchScale +'4)</span>';
+      if (container.width <= canvasWrapper.style.width) {
       const originX = startX + container.scrollLeft;       
       const originY = startY + container.scrollTop;
       // const originX = startX ;
@@ -584,6 +581,9 @@
       viewer.style.transform = `trnaslate(${container.scrollLeft}px, ${container.scrollTop}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       // viewer.style.transformOrigin = `0px 0px`;
+      }
+      testTxt.innerHTML = '<span>('+ windowWidth +' /캔퍼스사이즈'+ canvasWrapper.style.width +'m4)</span>';
+      
     }, { passive: false });
 
     const pinchMaxScale = 5;
