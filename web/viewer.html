@@ -565,9 +565,8 @@
 
       testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정3</span>';
       // const originX = startX + container.scrollLeft;
-      // const originY = startY + container.scrollTop;
-      const originX = startX ;
-      const originY = startY ;
+      const originY = startY + container.scrollTop;
+
 
       pinchScale = pinchDistance / initialPinchDistance;
 
