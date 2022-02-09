@@ -535,6 +535,7 @@
     let pinchScale = 1;
     const viewer = document.getElementById("viewer");
     const container = document.getElementById("viewerContainer");
+    const page = document.querySelector(".page");
     const testTxt = document.getElementById("testTxt");
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
     // Prevent native iOS page zoom
@@ -569,14 +570,15 @@
       // const originX = startX ;
       // const originY = startY ;
       pinchScale = pinchDistance / initialPinchDistance; 
-
-      if (windowWidth <= canvasWrapper.style.width) {
-      viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transform = `trnaslate(${container.scrollLeft}px, ${container.scrollTop}px)`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      
+      if ( window.innerWidth <= page.clientWidth) {
+        viewer.style.transform = `scale(${pinchScale})`;
+        viewer.style.transform = `trnaslate(${container.scrollLeft}px, ${container.scrollTop}px)`;
+        testTxt.innerHTML = '<span>('+  window.innerWidth +' /윈도우사이즈,'+ clientWidth +'/캔퍼스사이즈)2</span>';
+        // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       // viewer.style.transformOrigin = `0px 0px`;
       }
-      testTxt.innerHTML = '<span>('+ windowWidth +' /윈도우사이즈,'+ canvasWrapper.style.width +'/캔퍼스사이즈)2</span>';
+      
       
     }, { passive: false });
 
