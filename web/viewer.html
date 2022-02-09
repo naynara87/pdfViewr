@@ -576,25 +576,12 @@
       viewer.style.transformOrigin = `unset`;
       viewer.style.transition = `.1s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
-      // Compute the current center point in page coordinates
-      const pageCenterX = this.rootElement.nativeElement.clientWidth / 2 + this.rootElement.nativeElement.scrollLeft;
-      const pageCenterY = this.rootElement.nativeElement.clientHeight / 2 + this.rootElement.nativeElement.scrollTop;
-
-      // Compute the next center point in page coordinates
-      const centerX = (pageCenterX - this.originX) / pinchScale + this.originX;
-      const centerY = (pageCenterY - this.originY) / pinchScale + this.originY;
-
-      // Compute the ratios of the center point to the total scrollWidth/scrollHeight
-      const px = centerX / this.rootElement.nativeElement.scrollWidth;
-      const py = centerY / this.rootElement.nativeElement.scrollHeight;
-
-      // Scale
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
-
-      // Set the scrollbar positions using the percentages and the new scrollWidth/scrollHeight
-      this.rootElement.nativeElement.scrollLeft = this.rootElement.nativeElement.scrollWidth * px - this.rootElement.nativeElement.clientWidth / 2;
-      this.rootElement.nativeElement.scrollTop = this.rootElement.nativeElement.scrollHeight * py - this.rootElement.nativeElement.clientHeight / 2;
-      
+      const rect = container.getBoundingClientRect();
+      const dx = startX - rect.left;
+      const dy = startY - rect.top;
+      container.scrollLeft += dx * (pinchScale - 1);
+      container.scrollTop += dy * (pinchScale - 1);
       reset();
     });
   }
