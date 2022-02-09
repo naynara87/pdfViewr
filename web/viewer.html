@@ -561,8 +561,8 @@
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
-      // viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      viewer.style.transform = `scale(${pinchScale})`;
+      viewer.style.transformOrigin = `${originX}px ${originY}px`;
     }, { passive: false });
 
     const pinchMaxScale = 5;
@@ -584,13 +584,13 @@
 
       if (newPinchScale <= pinchMaxScale) {
 
-        container.scrollLeft += dx * (pinchScale - 1);
-        container.scrollTop += dy * (pinchScale - 1);
+        // container.scrollLeft += dx * (pinchScale - 1);
+        // container.scrollTop += dy * (pinchScale - 1);
 
       } else if (newPinchScale > pinchMinScale) {
 
-        container.scrollLeft -= dx * (pinchScale - 1);
-        container.scrollTop -= dy * (pinchScale - 1);
+        // container.scrollLeft -= dx * (pinchScale - 1);
+        // container.scrollTop -= dy * (pinchScale - 1);
 
       }
       reset();
