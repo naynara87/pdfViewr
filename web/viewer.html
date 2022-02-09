@@ -558,8 +558,8 @@
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
       if (e.scale !== 1) { e.preventDefault(); }
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      const tx = (e.touches[0].pageX + e.touches[1].pageX)/2 - (viewer.width / 2);
-      const ty = (e.touches[0].pageX + e.touches[1].pageY)/2 - (viewer.height / 2);
+      const tx = (e.touches[0].pageX + e.touches[1].pageX)/2 - viewer.width / 2;
+      const ty = (e.touches[0].pageX + e.touches[1].pageY)/2 - viewer.height / 2;
       if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
         return;
       }
