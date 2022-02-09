@@ -9123,9 +9123,9 @@ function resizesize() {
   var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
 
   var hasMobileUAg = pa.test(uAg);
-  var isTablet = window.innerWidth < 992 || hasMobileUAg;
+  var isTablet = window.innerWidth < 991 || hasMobileUAg;
   // var isMobile = window.innerWidth < 766 || hasMobileUAg;
-  var isDesktop = window.innerWidth > 993;
+  var isDesktop = window.innerWidth > 992;
   var toggleButton = document.getElementById("sidebarToggle")
 
   if (isTablet) {
