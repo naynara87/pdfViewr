@@ -569,16 +569,14 @@
 
 
       pinchScale = pinchDistance / initialPinchDistance;
-      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정7</span>';
-      viewer.style.transformOrigin = `50% ${originY}px`;
-
-
+      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정8</span>';
+      // viewer.style.transformOrigin = `50% ${originY}px`;
       viewer.style.transform = `scale(${pinchScale})`;
       
       if(page.clientWidth >= window.innerWidth){
         testTxt.innerHTML = '<span>2화면이 꽉찼습니다.</span>';
         viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      }else{
+      }else if(page.clientWidth < window.innerWidth){
         testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정7</span>';
         viewer.style.transformOrigin = `50% ${originY}px`;
       }
