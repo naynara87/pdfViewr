@@ -564,25 +564,19 @@
         return;
       }
       lastPinchDistance = pinchDistance;
-      if (container.width <= canvasWrapper.style.width) {
+
+      if (windowWidth <= canvasWrapper.style.width) {
       const originX = startX + container.scrollLeft;       
       const originY = startY + container.scrollTop;
       // const originX = startX ;
       // const originY = startY ;
-      const rect = container.getBoundingClientRect();
-      const dx = startX - rect.left;
-      const dy = startY - rect.top;
-
-      container.scrollLeft += dx * (pinchScale - 1);
-      container.scrollTop += dy * (pinchScale - 1);
-
       pinchScale = pinchDistance / initialPinchDistance; 
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transform = `trnaslate(${container.scrollLeft}px, ${container.scrollTop}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       // viewer.style.transformOrigin = `0px 0px`;
       }
-      testTxt.innerHTML = '<span>('+ windowWidth +' /캔퍼스사이즈'+ canvasWrapper.style.width +'m4)</span>';
+      testTxt.innerHTML = '<span>('+ windowWidth +' /윈도우사이즈,'+ canvasWrapper.style.width +'/캔퍼스사이즈)</span>';
       
     }, { passive: false });
 
