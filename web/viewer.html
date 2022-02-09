@@ -599,9 +599,9 @@
       viewer.style.transformOrigin = `unset`;
       // viewer.style.transition = `.1s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
+      PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
 
       if (newPinchScale <= pinchMaxScale) {
-        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
         const dy = startY - rect.top;
