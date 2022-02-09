@@ -567,11 +567,8 @@
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
 
-
       pinchScale = pinchDistance / initialPinchDistance;
-      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정8</span>';
-      // viewer.style.transformOrigin = `50% ${originY}px`;
-      viewer.style.transform = `scale(${pinchScale})`;
+      
       
       if(page.clientWidth >= window.innerWidth){
         testTxt.innerHTML = '<span>2화면이 꽉찼습니다.</span>';
@@ -580,6 +577,11 @@
         testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정7</span>';
         viewer.style.transformOrigin = `50% ${originY}px`;
       }
+
+      
+      testTxt.innerHTML = '<span>'+ page.clientWidth +'수정9</span>';
+      viewer.style.transform = `scale(${pinchScale})`;
+      viewer.style.transformOrigin = `50% ${originY}px`;
       // viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
@@ -611,7 +613,7 @@
       } else if (newPinchScale > pinchMinScale) {
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
-        const dy = startY - rect.top + 32;
+        const dy = startY - rect.top;
         // container.scrollLeft -= dx * (pinchScale - 1);
         // container.scrollTop -= dy * (pinchScale - 1);
       }
