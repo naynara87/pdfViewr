@@ -564,7 +564,11 @@
       pinchScale = pinchDistance / initialPinchDistance;
 
       viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      if(page.clientWidth > window.innerWidth){
+        viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      }else{
+        viewer.style.transformOrigin = `50% ${originY}px`;
+      }
 
       
 
