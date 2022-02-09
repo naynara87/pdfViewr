@@ -568,7 +568,9 @@
       const originY = startY + container.scrollTop;
 
       pinchScale = pinchDistance / initialPinchDistance;
-      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정8</span>';
+      testTxt.innerHTML = '<span>'+ page.clientWidth +'수정9</span>';
+      viewer.style.transform = `scale(${pinchScale})`;
+      viewer.style.transformOrigin = `50% ${originY}px`;
       
       
       if(page.clientWidth >= window.innerWidth){
@@ -579,9 +581,7 @@
       }
 
       
-      testTxt.innerHTML = '<span>'+ page.clientWidth +'수정9</span>';
-      viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `50% ${originY}px`;
+      
       // viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
