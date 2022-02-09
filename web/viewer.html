@@ -569,7 +569,7 @@
       }
       lastPinchDistance = pinchDistance;
 
-      testTxt.innerHTML = '<span>('+ tx + ',' + ty +')6</span>';
+      testTxt.innerHTML = '<span>('+ viewerContainer.width + ',' + viewerContainer.height +')7</span>';
       // const originX = startX + container.scrollLeft;       
       // const originY = startY + container.scrollTop;
       const originX = startX ;
@@ -578,8 +578,8 @@
       pinchScale = pinchDistance / initialPinchDistance; 
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transform = `trnaslate(${tx}px, ${ty}px)`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      viewer.style.transformOrigin = `0px 0px`;
+      viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      // viewer.style.transformOrigin = `0px 0px`;
     }, { passive: false });
 
     const pinchMaxScale = 5;
