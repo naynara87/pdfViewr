@@ -558,12 +558,14 @@
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
       if (e.scale !== 1) { e.preventDefault(); }
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+      const tx = (e.touches[0].pageX + e.touches[1].pageX)/2 - (viewer.width / 2);
+      const ty = (e.touches[0].pageX + e.touches[1].pageY)/2 - (viewer.height / 2);
       if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
         return;
       }
       lastPinchDistance = pinchDistance;
 
-      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정3</span>';
+      testTxt.innerHTML = '<span>'+ tx + ',' + ty +'수정4</span>';
       // const originX = startX + container.scrollLeft;
       // const originY = startY + container.scrollTop;
       const originX = startX ;
@@ -572,7 +574,7 @@
       pinchScale = pinchDistance / initialPinchDistance;
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
-      viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       // viewer.style.transformOrigin = `0px 0px`;
     }, { passive: false });
 
