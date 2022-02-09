@@ -592,26 +592,27 @@
       if (initialPinchDistance <= 0) {
         return;
       }
-      if(page.clientWidth >= window.innerWidth){
-        viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      }else{
-        viewer.style.transform = `none`;
-        viewer.style.transformOrigin = `unset`;
-      }
+      viewer.style.transform = `none`;
+      viewer.style.transformOrigin = `unset`;
+      // viewer.style.transition = `.1s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
-      const rect = container.getBoundingClientRect();
-      const dx = startX - rect.left;
-      const dy = startY - rect.top;
-      PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
 
       if (newPinchScale <= pinchMaxScale) {
-        container.scrollLeft += dx * (pinchScale - 1);
-        container.scrollTop += dy * (pinchScale - 1);
+        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
+        const rect = container.getBoundingClientRect();
+        const dx = startX - rect.left;
+        const dy = startY - rect.top;
+        
+        // container.scrollLeft += dx * (pinchScale - 1);
+        // container.scrollTop += dy * (pinchScale - 1);
         
         // }
       } else if (newPinchScale > pinchMinScale) {
-        container.scrollLeft -= dx * (pinchScale - 1);
-        container.scrollTop -= dy * (pinchScale - 1);
+        const rect = container.getBoundingClientRect();
+        const dx = startX - rect.left;
+        const dy = startY - rect.top + 32;
+        // container.scrollLeft -= dx * (pinchScale - 1);
+        // container.scrollTop -= dy * (pinchScale - 1);
       }
       reset();
     });
