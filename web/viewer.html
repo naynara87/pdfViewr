@@ -558,20 +558,24 @@
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
       if (e.scale !== 1) { e.preventDefault(); }
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      const tx = (e.touches[0].pageX + e.touches[1].pageX)/2 - viewer.width / 2;
-      const ty = (e.touches[0].pageX + e.touches[1].pageY)/2 - viewer.height / 2;
+      const tx = (e.touches[0].pageX + e.touches[1].pageX)/2 - viewerContainer.width / 2;
+      const ty = (e.touches[0].pageY + e.touches[1].pageY)/2 - viewerContainer.height / 2;
+
+      const ttx = tx * (1 - pinchScale);
+      const tty = ty * (1 - pinchScale);
+
       if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
         return;
       }
       lastPinchDistance = pinchDistance;
 
-      testTxt.innerHTML = '<span>'+ tx + ',' + ty +'수정4</span>';
-      // const originX = startX + container.scrollLeft;
+      testTxt.innerHTML = '<span>('+ tx + ',' + ty +')5</span>';
+      // const originX = startX + container.scrollLeft;       
       // const originY = startY + container.scrollTop;
       const originX = startX ;
       const originY = startY ;
 
-      pinchScale = pinchDistance / initialPinchDistance;
+      pinchScale = pinchDistance / initialPinchDistance; 
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transform = `trnaslate(${tx}px, ${ty}px)`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
@@ -587,7 +591,7 @@
       }
       viewer.style.transform = `none`;
       // viewer.style.transformOrigin = `unset`;
-      viewer.style.transition = `.1s linear`;
+      viewer.style.transition = `.2s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
 
       if (newPinchScale <= pinchMaxScale) {
