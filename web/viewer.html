@@ -569,11 +569,11 @@
       }
       lastPinchDistance = pinchDistance;
 
-      testTxt.innerHTML = '<span>('+ viewerContainer.width + ',' + viewerContainer.height +')7</span>';
-      // const originX = startX + container.scrollLeft;       
-      // const originY = startY + container.scrollTop;
-      const originX = startX ;
-      const originY = startY ;
+      testTxt.innerHTML = '<span>('+ viewerContainer.width + ',' + viewerContainer.height +')8</span>';
+      const originX = startX + container.scrollLeft;       
+      const originY = startY + container.scrollTop;
+      // const originX = startX ;
+      // const originY = startY ;
 
       pinchScale = pinchDistance / initialPinchDistance; 
       viewer.style.transform = `scale(${pinchScale})`;
