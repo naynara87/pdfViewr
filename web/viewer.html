@@ -559,7 +559,7 @@
       if (e.scale !== 1) { e.preventDefault(); }
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
       const tx = (e.touches[0].pageX + e.touches[1].pageX)/2 - (container.width/2);
-      const ty = (e.touches[0].pageY + e.touches[1].pageY)/2 - (container.height/2);
+      const ty = (e.touches[0].pageY + e.touches[1].pageY)/2 - (container.scrollTop);
 
       const ttx = tx * (1 - pinchScale);
       const tty = ty * (1 - pinchScale);
@@ -569,7 +569,7 @@
       }
       lastPinchDistance = pinchDistance;
 
-      testTxt.innerHTML = '<span>('+ container.width + ',' + container.height +')9</span>';
+      testTxt.innerHTML = '<span>('+ container.width + ',' + container.height +')1</span>';
       const originX = startX + container.scrollLeft;       
       const originY = startY + container.scrollTop;
       // const originX = startX ;
