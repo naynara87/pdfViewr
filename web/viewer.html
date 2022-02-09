@@ -563,9 +563,11 @@
       }
       lastPinchDistance = pinchDistance;
 
-      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'</span>';
-      const originX = startX + container.scrollLeft;
-      const originY = startY + container.scrollTop;
+      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'2</span>';
+      // const originX = startX + container.scrollLeft;
+      // const originY = startY + container.scrollTop;
+      const originX = startX ;
+      const originY = startY ;
 
       pinchScale = pinchDistance / initialPinchDistance;
       viewer.style.transform = `scale(${pinchScale})`;
