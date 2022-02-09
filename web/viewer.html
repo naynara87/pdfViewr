@@ -592,9 +592,12 @@
       if (initialPinchDistance <= 0) {
         return;
       }
-      viewer.style.transform = `none`;
-      viewer.style.transformOrigin = `unset`;
-      // viewer.style.transition = `.1s linear`;
+      if(page.clientWidth >= window.innerWidth){
+        viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      }else{
+        viewer.style.transform = `none`;
+        viewer.style.transformOrigin = `unset`;
+      }
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
 
       if (newPinchScale <= pinchMaxScale) {
