@@ -563,9 +563,9 @@
       }
       lastPinchDistance = pinchDistance;
 
-      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정3</span>';
+      testTxt.innerHTML = '<span>'+ viewer.style.transformOrigin +'수정4</span>';
       // const originX = startX + container.scrollLeft;
-      const originY = startY + container.scrollTop;
+      const originY = startY + container.scrollTop - 32;
 
 
       pinchScale = pinchDistance / initialPinchDistance;
@@ -587,8 +587,8 @@
         return;
       }
       viewer.style.transform = `none`;
-      // viewer.style.transformOrigin = `unset`;
-      viewer.style.transition = `.1s linear`;
+      viewer.style.transformOrigin = `unset`;
+      // viewer.style.transition = `.1s linear`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
 
       if (newPinchScale <= pinchMaxScale) {
