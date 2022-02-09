@@ -571,8 +571,8 @@
       viewer.style.transition = `.2s linear`;
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transform = `trnaslate(${originX}px, ${originY}px)`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      viewer.style.transformOrigin = `0px 0px`;
+      viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      // viewer.style.transformOrigin = `0px 0px`;
     }, { passive: false });
 
     const pinchMaxScale = 5;
