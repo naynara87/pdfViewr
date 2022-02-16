@@ -600,6 +600,8 @@
         return;
       }
       lastPinchDistance = pinchDistance;
+      const originX = container.scrollLeft;
+      const originY = container.scrollTop;
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
