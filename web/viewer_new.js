@@ -72,7 +72,7 @@ const defaultOptions = {
     kind: OptionKind.VIEWER + OptionKind.PREFERENCE
   },
   defaultUrl: {
-    value: "compressed.tracemonkey-pldi-09.pdf",
+    value: "KBB-300011-3011036582004_SIMSA.pdf",
     kind: OptionKind.VIEWER
   },
   defaultZoomValue: {
