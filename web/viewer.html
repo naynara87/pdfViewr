@@ -547,9 +547,7 @@
     testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
 
     //리사이즈시 사이드 숨기기
-    scaleSelectContainer.addEventListener("change", function () {
-      testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
-    });
+    
 
     window.addEventListener('resize', function(){
       
@@ -606,6 +604,7 @@
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
       viewer.style.transform = `scale(${pinchScale})`;
+      testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
       //대지 대비 transformOrigin 변화 넣기
       if(viewer.clientWidth > viewerContainer.clientWidth){
         viewer.style.transformOrigin = `${originX}px ${originY}px`;
