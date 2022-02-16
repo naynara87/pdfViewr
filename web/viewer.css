@@ -2936,7 +2936,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
 
 @media all and (max-width: 900px) {
   #sidebarContainer {
-    top: 40px!important;
+    top: 48px!important;
   }
   #sidebarContent {
     top: 40px;

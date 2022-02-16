@@ -12953,17 +12953,21 @@ var PDFThumbnailView = /*#__PURE__*/function () {
     };
 
     this.anchor = anchor;
-    var div = document.createElement("div");
+    const div = document.createElement("div");
     div.className = "thumbnail";
     div.setAttribute("data-page-number", this.id);
     this.div = div;
-    var ring = document.createElement("div");
+    const ring = document.createElement("div");
     ring.className = "thumbnailSelectionRing";
-    var borderAdjustment = 2 * THUMBNAIL_CANVAS_BORDER_WIDTH;
+    const pageNum = document.createElement("div");
+    pageNum.className = "pageNum";
+    const borderAdjustment = 2 * THUMBNAIL_CANVAS_BORDER_WIDTH;
     ring.style.width = this.canvasWidth + borderAdjustment + "px";
     ring.style.height = this.canvasHeight + borderAdjustment + "px";
     this.ring = ring;
     div.appendChild(ring);
+    div.appendChild(pageNum);
+    pageNum.innerHTML = `<span>${this.id}</span>`;
     anchor.appendChild(div);
     container.appendChild(anchor);
   }
