@@ -542,8 +542,8 @@
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
     // Prevent native iOS page zoom
     //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
-
-    //리사이즈
+    testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
+    //리사이즈시 사이드 숨기기
     window.addEventListener('resize', function(){
       testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
       if (window.innerWidth < 900)  {
@@ -598,7 +598,7 @@
         return;
       }
       viewer.style.transform = `none`;
-      viewer.style.transformOrigin = `unset ${startX + container.scrollTop}px`;
+      // viewer.style.transformOrigin = `unset ${startX + (container.scrollTop * pinchScale)}px`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
