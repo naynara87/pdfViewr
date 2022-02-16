@@ -539,7 +539,7 @@
     const page = document.querySelector("page");
     const sidebarToggle = document.getElementById("sidebarToggle");
     const outerContainer = document.getElementById("outerContainer");
-    const scaleSelect = document.getElementById("scaleSelect");
+    const scaleSelectContainer = document.getElementById("scaleSelect");
     const customScaleOption = document.getElementById("customScaleOption");
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
     // Prevent native iOS page zoom
@@ -547,11 +547,8 @@
     testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
 
     //리사이즈시 사이드 숨기기
-    scaleSelect.addEventListener("change", function () {
-      if(activities.value == "custom")
-        {
-          testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
-        }
+    scaleSelectContainer.addEventListener("change", function () {
+      testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
     });
 
     window.addEventListener('resize', function(){
@@ -608,8 +605,13 @@
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
-      // viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      viewer.style.transform = `scale(${pinchScale})`;
+      //대지 대비 transformOrigin 변화 넣기
+      if(viewer.clientWidth > viewerContainer.clientWidth){
+        viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      }else{
+        viewer.style.transformOrigin = `50% ${originY}px`;
+      }
     }, { passive: false });
     const pinchMaxScale = 5;
     const pinchMinScale = 0.8;
@@ -646,8 +648,7 @@
       }
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
-      const newPinchScale =
-        PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+      const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
       if (newPinchScale <= pinchMaxScale) {
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
