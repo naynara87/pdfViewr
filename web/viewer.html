@@ -607,7 +607,7 @@
       pinchScale = pinchDistance / initialPinchDistance;
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transition ='0.1s'
-      testTxt.innerHTML = `정보:대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
+      testTxt.innerHTML = `정보1:대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
       //대지 대비 transformOrigin 변화 넣기
       if(viewer.clientWidth > viewerContainer.clientWidth){
         viewer.style.transformOrigin = `${originX}px ${originY}px`;
@@ -648,7 +648,7 @@
       if (initialPinchDistance <= 0) {
         return;
       }
-      viewer.style.transform = `none`;
+      // viewer.style.transform = `none`;
       // viewer.style.transformOrigin = `unset`;
       const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
       if (newPinchScale <= pinchMaxScale) {
