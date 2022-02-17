@@ -607,7 +607,12 @@
       pinchScale = pinchDistance / initialPinchDistance;
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transition ='0.1s'
-      testTxt.innerHTML = `정보1:대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
+      testTxt.innerHTML = `정보2:대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
+      const rect = container.getBoundingClientRect();
+      const dx = startX - rect.left;
+      const dy = startY - rect.top;
+      container.scrollLeft += dx * (pinchScale - 1);
+      container.scrollTop += dy * (pinchScale - 1);
       //대지 대비 transformOrigin 변화 넣기
       if(viewer.clientWidth > viewerContainer.clientWidth){
         viewer.style.transformOrigin = `${originX}px ${originY}px`;
@@ -615,7 +620,7 @@
         viewer.style.transformOrigin = `50% ${originY}px`;
       }
     }, { passive: false });
-    const pinchMaxScale = 5;
+    const pinchMaxScale = 10;
     const pinchMinScale = 0.8;
 
     // container.addEventListener("touchend", (e) => {
