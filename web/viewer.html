@@ -606,7 +606,7 @@
       // const originY = startY + container.scrollTop;
       pinchScale = Math.round(pinchDistance / initialPinchDistance * 10) / 10;;
       viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transition ='0.1s'
+      // viewer.style.transition ='0.1s'
       testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
       
     }, { passive: false });
