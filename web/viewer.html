@@ -604,26 +604,12 @@
       const originY = container.scrollTop;
       // const originX = startX + container.scrollLeft;
       // const originY = startY + container.scrollTop;
-      pinchScale = pinchDistance / initialPinchDistance;
+      pinchScale = Math.round(pinchDistance / initialPinchDistance * 10) / 10;;
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transition ='0.1s'
-      testTxt.innerHTML = `정보3:대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
-      const rect = container.getBoundingClientRect();
-      //추가
-      const dx = startX - rect.left;
-      const dy = startY - rect.top;
-      container.scrollLeft += dx * (pinchScale - 1);
-      container.scrollTop += dy * (pinchScale - 1);
-      //대지 대비 transformOrigin 변화 넣기
-      if(viewer.clientWidth > viewerContainer.clientWidth){
-        viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      }else{
-        viewer.style.transformOrigin = `50% ${originY}px`;
-      }
+      testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
+      
     }, { passive: false });
-    const pinchMaxScale = 10;
-    const pinchMinScale = 0.8;
-
     // container.addEventListener("touchend", (e) => {
     //   if (initialPinchDistance <= 0) {
     //     return;
@@ -654,9 +640,9 @@
       if (initialPinchDistance <= 0) {
         return;
       }
-      viewer.style.transform = `none`;
-      viewer.style.transformOrigin = `unset`;
-      const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
+      
+      const newPinchScale =  PDFViewerApplication.pdfViewer.currentScale * pinchScale
+      // const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
 
       PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
       // if (newPinchScale <= pinchMaxScale) {

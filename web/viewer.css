@@ -686,6 +686,7 @@
 .pdfViewer {
   padding-bottom: var(--pdfViewer-padding-bottom);
   margin: 0 auto;
+  touch-action: pan-x;
 }
 
 .pdfViewer .canvasWrapper {
