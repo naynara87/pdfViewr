@@ -655,11 +655,11 @@
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
         const rect = container.getBoundingClientRect();
         const dx = startX - rect.left;
-        const dy = startY - rect.top + 32;
+        const dy = startY - rect.top;
         container.scrollLeft += dx * (pinchScale - 1);
         container.scrollTop += dy * (pinchScale - 1);
       }else if(newPinchScale > pinchMinScale){
-        newPinchScale = 0.8;
+        PDFViewerApplication.pdfViewer.currentScale = 0.8;
       }
       reset();
     });
