@@ -474,9 +474,60 @@
   </div> <!-- outerContainer -->
   <div id="printContainer"></div>
 </body>
-
-
 <script>
+  //로고 변경
+  var logoImg = document.querySelector('.bbc-logo-img');
+  //Darkmode Change 버튼 기능
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    document.documentElement.classList.add("dark");
+  }
+  //다크 on/off mode
+  var colorMode = document.querySelectorAll(".colorMode");
+  colorMode.forEach(function (e) {
+    e.addEventListener("click", () => {
+      document.documentElement.classList.toggle("dark");
+      console.log('클릭')
+    })
+  })
+
+  var lastScrollTop = 0;
+  const nav = document.querySelector('.toolbar');
+  const navbarHeight = document.querySelector('.toolbar').clientHeight;
+  const navScroll = document.querySelector('#viewerContainer');
+  const sidebarContainer = document.querySelector('#sidebarContainer');
+
+  var windowWidth = window.innerWidth;
+
+  // window.addEventListener('resize', function () {
+  //     if (windowWidth < 768) {
+  //       //창 가로 크기가 768 미만일 경우
+  //     } else {
+  //       //창 가로 크기가 768보다 클 경우
+
+  //     }
+  //   }, true);
+
+
+  //스크롤시 nav up
+  // function fixNav() {
+  //   if (navScroll.scrollTop > lastScrollTop && navScroll.scrollTop > navbarHeight) {
+  //     nav.classList.add('nav-up');
+  //     sidebarContainer.classList.add('side-up');
+  //   } else {
+  //     if (navScroll.scrollTop < lastScrollTop) {
+  //       nav.classList.remove('nav-up');
+  //       sidebarContainer.classList.remove('side-up');
+  //     }
+  //   }
+  //   lastScrollTop = navScroll.scrollTop;
+  // }
+  // navScroll.removeEventListener('scroll', fixNav);
+  // navScroll.addEventListener('scroll', fixNav);
+
+
+  //모바일 터치 zoom 반영
+
+
   let pinchZoomEnabled = false;
   function enablePinchZoom(pdfViewer) {
     let startX = 0, startY = 0;
@@ -484,14 +535,32 @@
     let pinchScale = 1;
     const viewer = document.getElementById("viewer");
     const container = document.getElementById("viewerContainer");
+    const testTxt = document.getElementById("testTxt");
+    const page = document.querySelector("page");
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const outerContainer = document.getElementById("outerContainer");
+    const scaleSelectContainer = document.getElementById("scaleSelect");
+    const customScaleOption = document.getElementById("customScaleOption");
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
-
     // Prevent native iOS page zoom
-    // document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
-    document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: true });
+    //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
+    testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
 
-    viewer.addEventListener("touchstart", (e) => {
-      e.preventDefault();
+    //리사이즈시 사이드 숨기기
+    
+
+    window.addEventListener('resize', function(){
+      
+      if (window.innerWidth < 900)  {
+        sidebarToggle.classList.remove('toggled');
+        outerContainer.classList.remove('sidebarOpen');
+      }else{
+        sidebarToggle.classList.add('toggled');
+        outerContainer.classList.add('sidebarOpen');
+      }
+    });
+
+    document.addEventListener("touchstart", (e) => {
       if (e.touches.length > 1) {
         startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
         startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
@@ -501,32 +570,51 @@
       }
     });
 
-    viewer.addEventListener("touchmove", (e) => {
-      if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
+    let lastPinchDistance = 0; 
+    const pinchStepLength = 20;
+    
 
+    document.addEventListener("touchmove", (e) => {
+      if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
+      if (e.scale !== 1) { e.preventDefault(); }
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      const originX = startX + container.scrollLeft;
+      const rect = container.getBoundingClientRect();
+      const originX = startX + container.scrollLeft;dfg
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
-
       viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `${originX}px ${originY}px`;
-    });
+      viewer.style.transformOrigin = `50% ${originY}px`;
+    testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
+      //대지 대비 transformOrigin 변화 넣기
+      if(viewer.clientWidth > viewerContainer.clientWidth){
+        viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      }else{
+        viewer.style.transformOrigin = `50% ${originY}px`;
+      }
+      
+    }, { passive: false });
+    let lastPinchDistance = 0;
+    const pinchStepLength = 50;
 
-    viewer.addEventListener("touchend", (e) => {
-      e.preventDefault();
-      if (initialPinchDistance <= 0) { return; }
 
+    const pinchMaxScale = 5;
+
+    container.addEventListener("touchend", (e) => {
+      if (initialPinchDistance <= 0) {
+        return;
+      }
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
-
-      PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
-      const rect = container.getBoundingClientRect();
-      const dx = startX - rect.left;
-      const dy = startY - rect.top;
-      container.scrollLeft += dx * (pinchScale - 1);
-      container.scrollTop += dy * (pinchScale - 1);
-
+      const newPinchScale =
+        PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+      if (newPinchScale <= pinchMaxScale) {
+        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
+        const rect = container.getBoundingClientRect();
+        const dx = startX - rect.left;
+        const dy = startY - rect.top;
+        container.scrollLeft += dx * (pinchScale - 1);
+        container.scrollTop += dy * (pinchScale - 1);
+      }
       reset();
     });
   }
@@ -537,6 +625,8 @@
       enablePinchZoom();
     }
   });
+
+
 </script>
 
 </html>
