@@ -574,38 +574,28 @@
     const pinchStepLength = 20;
     
 
-    // document.addEventListener("touchmove", (e) => {
-    //   if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
-    //   if (e.scale !== 1) { e.preventDefault(); }
-    //   const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-    //   const rect = container.getBoundingClientRect();
-    //   const originX = startX + container.scrollLeft;dfg
-    //   const originY = startY + container.scrollTop;
-    //   pinchScale = pinchDistance / initialPinchDistance;
-    //   viewer.style.transform = `scale(${pinchScale})`;
-    //   viewer.style.transformOrigin = `50% ${originY}px`;
-    // testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
-    //   //대지 대비 transformOrigin 변화 넣기
-    //   if(viewer.clientWidth > viewerContainer.clientWidth){
-    //     viewer.style.transformOrigin = `${originX}px ${originY}px`;
-    //   }else{
-    //     viewer.style.transformOrigin = `50% ${originY}px`;
-    //   }
-      
-    // }, { passive: false });
-    let lastPinchDistance = 0;
-    const pinchStepLength = 50;
-
-      document.addEventListener("touchmove", (e) => {
+    document.addEventListener("touchmove", (e) => {
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
       if (e.scale !== 1) { e.preventDefault(); }
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-      const originX = startX + container.scrollLeft;
+      const rect = container.getBoundingClientRect();
+      const originX = startX + container.scrollLeft;dfg
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
       viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      viewer.style.transformOrigin = `50% ${originY}px`;
+    testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
+      //대지 대비 transformOrigin 변화 넣기
+      if(viewer.clientWidth > viewerContainer.clientWidth){
+        viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      }else{
+        viewer.style.transformOrigin = `50% ${originY}px`;
+      }
+      
     }, { passive: false });
+    let lastPinchDistance = 0;
+    const pinchStepLength = 50;
+
 
     const pinchMaxScale = 5;
 
