@@ -24,6 +24,11 @@
   <!-- pinch zoom -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
   <!-- <script type="text/javascript" src="pinch-zoom.umd.js"></script> -->
+  <style>
+    #viewer {
+      touch-action: pinch-zoom;       /* 핀치 줌(여러 손가락을 사용한 확대/축소)만 허용 */
+    }
+  </style>
 </head>
 
 <body tabindex="1">
@@ -487,8 +492,7 @@
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
 
     // Prevent native iOS page zoom
-    // document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
-    document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: true });
+    document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
 
     viewer.addEventListener("touchstart", (e) => {
       // e.preventDefault();
