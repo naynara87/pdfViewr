@@ -491,7 +491,7 @@
     document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: true });
 
     viewer.addEventListener("touchstart", (e) => {
-      e.preventDefault();
+      // e.preventDefault();
       if (e.touches.length > 1) {
         startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
         startY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
@@ -514,7 +514,7 @@
     });
 
     viewer.addEventListener("touchend", (e) => {
-      e.preventDefault();
+      // e.preventDefault();
       if (initialPinchDistance <= 0) { return; }
 
       viewer.style.transform = `none`;
