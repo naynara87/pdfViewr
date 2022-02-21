@@ -596,45 +596,35 @@
     let lastPinchDistance = 0;
     const pinchStepLength = 50;
 
-    document.addEventListener("touchmove", (e) => {
-        if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
-        if (e.scale !== 1) { e.preventDefault(); }
-        const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
-        if (Math.abs(pinchDistance - lastPinchDistance) < pinchStepLength) {
-          return;
-        }
-        lastPinchDistance = pinchDistance;
-        const originX = startX + container.scrollLeft;
-        const originY = startY + container.scrollTop;
-        pinchScale = pinchDistance / initialPinchDistance;
-        viewer.style.transform = `scale(${pinchScale})`;
-        viewer.style.transformOrigin = `${originX}px ${originY}px`;
-        testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),스케일(${pinchScale})`;
-
-        const rect = container.getBoundingClientRect();
-        const dx = startX - rect.left;
-        const dy = startY - rect.top;
-        container.scrollLeft = startX - container.scrollLeft * pinchScale + dx;
-        container.scrollTop = startY - container.scrollTop * pinchScale + dy;
-
+      document.addEventListener("touchmove", (e) => {
+      if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
+      if (e.scale !== 1) { e.preventDefault(); }
+      const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
+      const originX = startX + container.scrollLeft;
+      const originY = startY + container.scrollTop;
+      pinchScale = pinchDistance / initialPinchDistance;
+      viewer.style.transform = `scale(${pinchScale})`;
+      viewer.style.transformOrigin = `${originX}px ${originY}px`;
     }, { passive: false });
-    
+
+    const pinchMaxScale = 5;
+
     container.addEventListener("touchend", (e) => {
       if (initialPinchDistance <= 0) {
         return;
       }
-      // const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
-      // if (newPinchScale <= pinchMaxScale) {
-      //   PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
-      //   const rect = container.getBoundingClientRect();
-      //   const dx = startX - rect.left;
-      //   const dy = startY - rect.top;
-      //   container.scrollLeft += dx * (pinchScale - 1);
-      //   container.scrollTop += dy * (pinchScale - 1);
-        
-      // }else if(PDFViewerApplication.pdfViewer.currentScale < pinchMinScale){
-      //   PDFViewerApplication.pdfViewer.currentScale = 0.8;
-      // }
+      viewer.style.transform = `none`;
+      viewer.style.transformOrigin = `unset`;
+      const newPinchScale =
+        PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+      if (newPinchScale <= pinchMaxScale) {
+        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
+        const rect = container.getBoundingClientRect();
+        const dx = startX - rect.left;
+        const dy = startY - rect.top;
+        container.scrollLeft += dx * (pinchScale - 1);
+        container.scrollTop += dy * (pinchScale - 1);
+      }
       reset();
     });
   }
