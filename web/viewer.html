@@ -578,17 +578,17 @@
       const originY = startY + container.scrollTop;
       pinchScale = Math.round(pinchDistance / initialPinchDistance * 100) / 100;
       //스케일 사이즈 정수로
-      if(pinchScale < 0.5){
-        pinchScale = 0.5;
-      }else if(pinchScale > 2){
-        pinchScale = 2;
+      if(PDFViewerApplication.pdfViewer.currentScale < 0.5){
+        PDFViewerApplication.pdfViewer.currentScale = 0.5;
+      }else if(PDFViewerApplication.pdfViewer.currentScale > 2){
+        PDFViewerApplication.pdfViewer.currentScale = 2;
       }
 
 
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      testTxt.innerHTML = `대지사이즈1154(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
+      testTxt.innerHTML = `대지사이즈1154(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
         //대지 대비 transformOrigin 변화 넣기
         if(viewer.clientWidth > viewerContainer.clientWidth){
           viewer.style.transformOrigin = `${originX}px ${originY}px`;
