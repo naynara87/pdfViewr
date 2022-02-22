@@ -525,6 +525,11 @@
         }else{
           viewer.style.transformOrigin = `50% ${originY}px`;
         }
+      if(pinchScale <= 0.6){
+         pinchScale = 0.6
+      }else if(pinchScale > 4){
+         pinchScale = 4
+      }
     });
 
     container.addEventListener("touchend", (e) => {
@@ -534,14 +539,19 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
 
-      testTxt.innerHTML = `대지사이즈1154(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
+      testTxt.innerHTML = `대지사이즈428(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
       
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
       const dy = startY - rect.top - 5;
-      container.scrollLeft += dx * (pinchScale - 1);
-      container.scrollTop += dy * (pinchScale - 1);
+      if(pinchScale <= 0.6){
+         pinchScale = 0.6
+      }else if(pinchScale > 4){
+         pinchScale = 4
+      }
+      // container.scrollLeft += dx * (pinchScale - 1);
+      // container.scrollTop += dy * (pinchScale - 1);
       reset();
     });
   }
