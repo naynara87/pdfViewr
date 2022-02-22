@@ -346,7 +346,7 @@
       </div>
 
       <div id="viewerContainer" tabindex="0">
-        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">수치계산</div>
+        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">수치계산2</div>
         <div id="viewer" class="pdfViewer">
         </div>
       </div>
@@ -495,7 +495,6 @@
   const navbarHeight = document.querySelector('.toolbar').clientHeight;
   const navScroll = document.querySelector('#viewerContainer');
   const sidebarContainer = document.querySelector('#sidebarContainer');
-
   var windowWidth = window.innerWidth;
 
   // window.addEventListener('resize', function () {
@@ -544,19 +543,23 @@
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
     // Prevent native iOS page zoom
     //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
-    testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
+    testTxt.innerHTML = `수치넣기1`;
 
     //리사이즈시 사이드 숨기기
-    window.addEventListener('resize', function () {
-      if (window.innerWidth < 900) {
+    
+
+    window.addEventListener('resize', function(){
+      
+      if (window.innerWidth < 900)  {
         sidebarToggle.classList.remove('toggled');
         outerContainer.classList.remove('sidebarOpen');
-      } else {
+      }else{
         sidebarToggle.classList.add('toggled');
         outerContainer.classList.add('sidebarOpen');
       }
     });
-    //pinch zoom
+     //pinch zoom
+     //pinch zoom
     viewer.addEventListener("touchstart", (e) => {
       if (e.touches.length > 1) {
         viewer.style.touchAction = 'pinch-zoom';
@@ -577,7 +580,9 @@
       pinchScale = pinchDistance / initialPinchDistance;
 
       viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      viewer.style.transformOrigin = `50% ${originY}px`;
+      testTxt.innerHTML = `대지사이즈1222(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale * pinchScale})`;
+
     });
 
     viewer.addEventListener("touchend", (e) => {
@@ -590,22 +595,23 @@
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
-      const dy = startY - rect.top;
+      const dy = startY - rect.top - 5;
       container.scrollLeft += dx * (pinchScale - 1);
       container.scrollTop += dy * (pinchScale - 1);
 
       reset();
     });
   }
+    
 
+   
 
-
-  document.addEventListener('webviewerloaded', () => {
-    if (!pinchZoomEnabled) {
-      pinchZoomEnabled = true;
-      enablePinchZoom();
-    }
-  });
+        document.addEventListener('webviewerloaded', () => {
+          if (!pinchZoomEnabled) {
+            pinchZoomEnabled = true;
+            enablePinchZoom();
+          }
+        });
 
 
 </script>
