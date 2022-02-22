@@ -576,18 +576,19 @@
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
-      pinchScale = pinchDistance / initialPinchDistance;
+      pinchScale = Math.round(pinchDistance / initialPinchDistance* 100) / 100;
 
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       viewer.style.transformOrigin = `50% ${originY}px`;
       testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
         //대지 대비 transformOrigin 변화 넣기
-        if(viewer.clientWidth > viewerContainer.clientWidth){
-          viewer.style.transformOrigin = `${originX}px ${originY}px`;
-        }else{
-          viewer.style.transformOrigin = `50% ${originY}px`;
-        }
+        // if(viewer.clientWidth > viewerContainer.clientWidth){
+        //   viewer.style.transformOrigin = `${originX}px ${originY}px`;
+        // }else{
+        //   viewer.style.transformOrigin = `50% ${originY}px`;
+        // }
+        //스케일 사이즈 정수로
 
     });
 
