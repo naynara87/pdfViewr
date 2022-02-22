@@ -24,11 +24,6 @@
   <!-- pinch zoom -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
   <!-- <script type="text/javascript" src="pinch-zoom.umd.js"></script> -->
-<!--  <style>-->
-<!--    #viewer {-->
-<!--      touch-action: pinch-zoom;       /* 핀치 줌(여러 손가락을 사용한 확대/축소)만 허용 */-->
-<!--    }-->
-<!--  </style>-->
 </head>
 
 <body tabindex="1">
@@ -479,21 +474,89 @@
   </div> <!-- outerContainer -->
   <div id="printContainer"></div>
 </body>
-
-
 <script>
-  let pinchZoomEnabled = false;
-  function enablePinchZoom(pdfViewer) {
+  //로고 변경
+  var logoImg = document.querySelector('.bbc-logo-img');
+  //Darkmode Change 버튼 기능
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    document.documentElement.classList.add("dark");
+  }
+  //다크 on/off mode
+  var colorMode = document.querySelectorAll(".colorMode");
+  colorMode.forEach(function (e) {
+    e.addEventListener("click", () => {
+      document.documentElement.classList.toggle("dark");
+      console.log('클릭')
+    })
+  })
+
+  var lastScrollTop = 0;
+  const nav = document.querySelector('.toolbar');
+  const navbarHeight = document.querySelector('.toolbar').clientHeight;
+  const navScroll = document.querySelector('#viewerContainer');
+  const sidebarContainer = document.querySelector('#sidebarContainer');
+
+  var windowWidth = window.innerWidth;
+
+  // window.addEventListener('resize', function () {
+  //     if (windowWidth < 768) {
+  //       //창 가로 크기가 768 미만일 경우
+  //     } else {
+  //       //창 가로 크기가 768보다 클 경우
+
+  //     }
+  //   }, true);
+
+
+  //스크롤시 nav up
+  // function fixNav() {
+  //   if (navScroll.scrollTop > lastScrollTop && navScroll.scrollTop > navbarHeight) {
+  //     nav.classList.add('nav-up');
+  //     sidebarContainer.classList.add('side-up');
+  //   } else {
+  //     if (navScroll.scrollTop < lastScrollTop) {
+  //       nav.classList.remove('nav-up');
+  //       sidebarContainer.classList.remove('side-up');
+  //     }
+  //   }
+  //   lastScrollTop = navScroll.scrollTop;
+  // }
+  // navScroll.removeEventListener('scroll', fixNav);
+  // navScroll.addEventListener('scroll', fixNav);
+
+
+  //모바일 터치 zoom 반영
+
+
+    let pinchZoomEnabled = false;
+    function enablePinchZoom(pdfViewer) {
     let startX = 0, startY = 0;
     let initialPinchDistance = 0;
     let pinchScale = 1;
     const viewer = document.getElementById("viewer");
     const container = document.getElementById("viewerContainer");
+    const testTxt = document.getElementById("testTxt");
+    const page = document.querySelector("page");
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const outerContainer = document.getElementById("outerContainer");
+    const scaleSelectContainer = document.getElementById("scaleSelect");
+    const customScaleOption = document.getElementById("customScaleOption");
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
-
     // Prevent native iOS page zoom
-    document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
+    //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
+    testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
 
+    //리사이즈시 사이드 숨기기
+    window.addEventListener('resize', function(){
+      if (window.innerWidth < 900)  {
+        sidebarToggle.classList.remove('toggled');
+        outerContainer.classList.remove('sidebarOpen');
+      }else{
+        sidebarToggle.classList.add('toggled');
+        outerContainer.classList.add('sidebarOpen');
+      }
+    });
+    //pinch zoom
     viewer.addEventListener("touchstart", (e) => {
       if (e.touches.length > 1) {
         viewer.style.touchAction = 'pinch-zoom';
@@ -535,12 +598,16 @@
     });
   }
 
+
+
   document.addEventListener('webviewerloaded', () => {
     if (!pinchZoomEnabled) {
       pinchZoomEnabled = true;
       enablePinchZoom();
     }
   });
+
+
 </script>
 
 </html>
