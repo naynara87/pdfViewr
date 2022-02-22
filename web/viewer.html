@@ -559,7 +559,7 @@
       }
     });
      //pinch zoom
-     viewer.addEventListener("touchstart", (e) => {
+     container.addEventListener("touchstart", (e) => {
       if (e.touches.length > 1) {
         viewer.style.touchAction = 'pinch-zoom';
         startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
@@ -570,7 +570,7 @@
       }
     });
 
-    viewer.addEventListener("touchmove", (e) => {
+    container.addEventListener("touchmove", (e) => {
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
 
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
@@ -591,7 +591,7 @@
 
     });
 
-    viewer.addEventListener("touchend", (e) => {
+    container.addEventListener("touchend", (e) => {
       viewer.style.touchAction = '';
       if (initialPinchDistance <= 0) { return; }
 
