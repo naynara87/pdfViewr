@@ -512,7 +512,8 @@
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
-
+      pinchScale = Math.ceil(pinchScale * 10) / 10;
+      pinchScale = Math.min(0.5, pinchScale);
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transformOrigin = `${originX}px ${originY}px`;
     });
