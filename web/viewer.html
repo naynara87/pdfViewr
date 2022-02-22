@@ -581,7 +581,7 @@
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       viewer.style.transformOrigin = `50% ${originY}px`;
-      testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
+      testTxt.innerHTML = `대지사이즈222(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
         //대지 대비 transformOrigin 변화 넣기
         // if(viewer.clientWidth > viewerContainer.clientWidth){
         //   viewer.style.transformOrigin = `${originX}px ${originY}px`;
@@ -604,7 +604,7 @@
       // PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left -5;
-      const dy = startY - rect.top + 5;
+      const dy = startY - rect.top - 5;
       container.scrollLeft += dx * (pinchScale - 1);
       container.scrollTop += dy * (pinchScale - 1);
 
