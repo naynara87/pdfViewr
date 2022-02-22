@@ -539,7 +539,7 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
 
-      testTxt.innerHTML = `대지사이즈428(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
+      testTxt.innerHTML = `대지사이즈436(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
       
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
       const rect = container.getBoundingClientRect();
@@ -550,8 +550,8 @@
       }else if(pinchScale > 4){
          pinchScale = 4
       }
-      // container.scrollLeft += dx * (pinchScale - 1);
-      // container.scrollTop += dy * (pinchScale - 1);
+      container.scrollLeft += dx * (pinchScale - 1);
+      container.scrollTop += dy * (pinchScale - 1);
       reset();
     });
   }
