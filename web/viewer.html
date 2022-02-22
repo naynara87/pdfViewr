@@ -517,7 +517,7 @@
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
-      pinchScale = pinchDistance / initialPinchDistance;
+      pinchScale = Math.round(pinchDistance / initialPinchDistance * 100) / 100;
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `50% ${originY}px`;
       if(viewer.clientWidth > viewerContainer.clientWidth){
@@ -525,10 +525,10 @@
         }else{
           viewer.style.transformOrigin = `50% ${originY}px`;
         }
-      if(pinchScale <= 0.6){
-         pinchScale = 0.6
-      }else if(pinchScale > 4){
-         pinchScale = 4
+      if(PDFViewerApplication.pdfViewer.currentScale <= 0.6){
+        PDFViewerApplication.pdfViewer.currentScale = 0.6;
+      }else if(PDFViewerApplication.pdfViewer.currentScale > 4){
+        PDFViewerApplication.pdfViewer.currentScale = 4;
       }
     });
 
@@ -539,17 +539,13 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
 
-      testTxt.innerHTML = `대지사이즈436(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
+      testTxt.innerHTML = `대지사이즈428(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
       
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
       const dy = startY - rect.top - 5;
-      if(pinchScale <= 0.6){
-         pinchScale = 0.6
-      }else if(pinchScale > 4){
-         pinchScale = 4
-      }
+      
       container.scrollLeft += dx * (pinchScale - 1);
       container.scrollTop += dy * (pinchScale - 1);
       reset();
