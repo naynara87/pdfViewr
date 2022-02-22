@@ -540,14 +540,13 @@
 
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
+      // PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
 
       testTxt.innerHTML = `대지사이즈530(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
-      
-      PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
 
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
-      const dy = startY - rect.top - 5;
+      const dy = startY - rect.top + 32;
       
       container.scrollLeft += dx * (pinchScale - 1);
       container.scrollTop += dy * (pinchScale - 1);
