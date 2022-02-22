@@ -543,7 +543,7 @@
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
     // Prevent native iOS page zoom
     //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
-    testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
+    testTxt.innerHTML = `대지사이즈2(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
 
     //리사이즈시 사이드 숨기기
     
@@ -590,8 +590,8 @@
       viewer.style.transformOrigin = `unset`;
 
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
-      const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
-      PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
+      // const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
+      // PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
       const dy = startY - rect.top + 35;
