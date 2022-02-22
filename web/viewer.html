@@ -483,6 +483,7 @@
 
 <script>
   let pinchZoomEnabled = false;
+
   function enablePinchZoom(pdfViewer) {
     let startX = 0, startY = 0;
     let initialPinchDistance = 0;
@@ -525,13 +526,12 @@
         }else{
           viewer.style.transformOrigin = `50% ${originY}px`;
         }
-      // if(PDFViewerApplication.pdfViewer.currentScale <= 0.6){
-      //   PDFViewerApplication.pdfViewer.currentScale = 0.6;
-      //   pinchScale = 0.6;
-      // }else if(PDFViewerApplication.pdfViewer.currentScale > 4){
-      //   PDFViewerApplication.pdfViewer.currentScale = 4;
-      //   pinchScale = 4;
-      // }
+
+        if(PDFViewerApplication.pdfViewer.currentScale <= 0.6){
+          return false;
+        }else if(PDFViewerApplication.pdfViewer.currentScale > 4){
+          return false;
+        }
     });
 
     container.addEventListener("touchend", (e) => {
@@ -541,9 +541,10 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
 
-      testTxt.innerHTML = `대지사이즈450(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
+      testTxt.innerHTML = `대지사이즈530(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
       
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
+
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
       const dy = startY - rect.top - 5;
