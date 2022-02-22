@@ -525,11 +525,13 @@
         }else{
           viewer.style.transformOrigin = `50% ${originY}px`;
         }
-      if(PDFViewerApplication.pdfViewer.currentScale <= 0.6){
-        PDFViewerApplication.pdfViewer.currentScale = 0.6;
-      }else if(PDFViewerApplication.pdfViewer.currentScale > 4){
-        PDFViewerApplication.pdfViewer.currentScale = 4;
-      }
+      // if(PDFViewerApplication.pdfViewer.currentScale <= 0.6){
+      //   PDFViewerApplication.pdfViewer.currentScale = 0.6;
+      //   pinchScale = 0.6;
+      // }else if(PDFViewerApplication.pdfViewer.currentScale > 4){
+      //   PDFViewerApplication.pdfViewer.currentScale = 4;
+      //   pinchScale = 4;
+      // }
     });
 
     container.addEventListener("touchend", (e) => {
