@@ -686,7 +686,6 @@
 .pdfViewer {
   padding-bottom: var(--pdfViewer-padding-bottom);
   margin: 0 auto;
-  touch-action: pan-x;
 }
 
 .pdfViewer .canvasWrapper {
@@ -851,7 +850,7 @@
   color: #fff;
 }
 :root {
-  --sidebar-width: 202px;
+  --sidebar-width: 260px;
   --sidebar-transition-duration: 200ms;
   --sidebar-transition-timing-function: ease;
   --scale-select-container-width: 140px;
@@ -2879,10 +2878,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     display: flex;
   }
 }
-@media (max-width: 900px) {
-  #sidebarContainer {
-    top: 48px;
-  }
+
 @media (max-width: 768px) {
   #toolbarContainer{
     /* min-width: 768px */
@@ -2895,9 +2891,6 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
   }
 }
 @media (max-width: 535px) {
-  #sidebarContainer {
-    top: 38px;
-  }
   #toolbarContainer{
     height: 38px;
   }
@@ -2942,7 +2935,9 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
 
 
 @media all and (max-width: 900px) {
-  
+  #sidebarContainer {
+    top: 40px!important;
+  }
   #sidebarContent {
     top: 40px;
   }
@@ -3041,7 +3036,7 @@ html[dir="rtl"] #documentPropertiesOverlay .row > * {
     display: none;
   }
   #sidebarContainer{
-    /* width: 256px; */
+    width: 256px;
   }
   #findInput {
     width: calc(100% - 82px)
