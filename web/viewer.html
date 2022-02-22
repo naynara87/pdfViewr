@@ -579,7 +579,16 @@
       pinchScale = pinchDistance / initialPinchDistance;
 
       viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      // viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      viewer.style.transformOrigin = `50% ${originY}px`;
+      testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
+        //대지 대비 transformOrigin 변화 넣기
+        if(viewer.clientWidth > viewerContainer.clientWidth){
+          viewer.style.transformOrigin = `${originX}px ${originY}px`;
+        }else{
+          viewer.style.transformOrigin = `50% ${originY}px`;
+        }
+
     });
 
     viewer.addEventListener("touchend", (e) => {
