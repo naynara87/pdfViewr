@@ -576,7 +576,7 @@
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
-      pinchScale =  Math.round(pinchDistance / initialPinchDistance * 10) / 10;
+      pinchScale = pinchDistance / initialPinchDistance;
 
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
