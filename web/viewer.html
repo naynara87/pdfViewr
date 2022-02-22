@@ -489,12 +489,18 @@
     let pinchScale = 1;
     const viewer = document.getElementById("viewer");
     const container = document.getElementById("viewerContainer");
+    const testTxt = document.getElementById("testTxt");
+    const page = document.querySelector("page");
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const outerContainer = document.getElementById("outerContainer");
+    const scaleSelectContainer = document.getElementById("scaleSelect");
+    const customScaleOption = document.getElementById("customScaleOption");
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
 
     // Prevent native iOS page zoom
     document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
 
-    viewer.addEventListener("touchstart", (e) => {
+    container.addEventListener("touchstart", (e) => {
       if (e.touches.length > 1) {
         viewer.style.touchAction = 'pinch-zoom';
         startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
@@ -505,7 +511,7 @@
       }
     });
 
-    viewer.addEventListener("touchmove", (e) => {
+    container.addEventListener("touchmove", (e) => {
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
 
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
@@ -516,7 +522,7 @@
       viewer.style.transformOrigin = `50px ${originY}px`;
     });
 
-    viewer.addEventListener("touchend", (e) => {
+    container.addEventListener("touchend", (e) => {
       viewer.style.touchAction = '';
       if (initialPinchDistance <= 0) { return; }
 
@@ -532,7 +538,6 @@
       const dy = startY - rect.top;
       container.scrollLeft += dx * (pinchScale - 1);
       container.scrollTop += dy * (pinchScale - 1);
-
       reset();
     });
   }
