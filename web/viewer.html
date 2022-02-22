@@ -519,7 +519,7 @@
       const originY = startY + container.scrollTop;
       pinchScale = pinchDistance / initialPinchDistance;
       viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `50px ${originY}px`;
+      viewer.style.transformOrigin = `50% ${originY}px`;
     });
 
     container.addEventListener("touchend", (e) => {
