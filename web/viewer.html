@@ -576,33 +576,34 @@
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
-      pinchScale = Math.round(pinchDistance / initialPinchDistance* 100) / 100;
+      pinchScale = Math.round(pinchDistance / initialPinchDistance * 100) / 100;
+      //스케일 사이즈 정수로
+      if(pinchScale < 0.5){
+        pinchScale = 0.5;
+      }else if(pinchScale > 2){
+        pinchScale = 2;
+      }
+
 
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      testTxt.innerHTML = `대지사이즈1147(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
+      testTxt.innerHTML = `대지사이즈1154(${viewerContainer.clientWidth}),스케일1(${pinchScale})`;
         //대지 대비 transformOrigin 변화 넣기
-        // if(viewer.clientWidth > viewerContainer.clientWidth){
-        //   viewer.style.transformOrigin = `${originX}px ${originY}px`;
-        // }else{
-        //   viewer.style.transformOrigin = `50% ${originY}px`;
-        // }
-        //스케일 사이즈 정수로
+        if(viewer.clientWidth > viewerContainer.clientWidth){
+          viewer.style.transformOrigin = `${originX}px ${originY}px`;
+        }else{
+          viewer.style.transformOrigin = `50% ${originY}px`;
+        }
 
     });
 
     container.addEventListener("touchend", (e) => {
       viewer.style.touchAction = '';
       if (initialPinchDistance <= 0) { return; }
-
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
-
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
-      const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
-      PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
-      // PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
       const dy = startY - rect.top + 5;
