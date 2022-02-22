@@ -351,7 +351,7 @@
       </div>
 
       <div id="viewerContainer" tabindex="0">
-        <!-- <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">수치계산</div> -->
+        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">수치계산</div>
         <div id="viewer" class="pdfViewer">
         </div>
       </div>
@@ -523,6 +523,8 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
 
+      testTxt.innerHTML = `대지사이즈1154(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
+      
       pinchScale = Math.round(pinchDistance / initialPinchDistance * 100) / 100;
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
       const rect = container.getBoundingClientRect();
