@@ -576,7 +576,7 @@
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
-      pinchScale = pinchDistance / initialPinchDistance;
+      pinchScale =  Math.round(pinchDistance / initialPinchDistance * 10) / 10;
 
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
@@ -598,11 +598,12 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
 
-      const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
-      PDFViewerApplication.pdfViewer.currentScale *= newPinchScale;
+      PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
+      // const newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
+      // PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
-      const dy = startY - rect.top + 32;
+      const dy = startY - rect.top + 30;
       container.scrollLeft += dx * (pinchScale - 1);
       container.scrollTop += dy * (pinchScale - 1);
 
