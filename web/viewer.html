@@ -588,7 +588,7 @@
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
       viewer.style.transformOrigin = `50% ${originY}px`;
-      testTxt.innerHTML = `대지사이즈1218(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale * pinchScale})`;
+      testTxt.innerHTML = `대지사이즈1222(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale * pinchScale})`;
         //대지 대비 transformOrigin 변화 넣기
         // if(viewer.clientWidth > viewerContainer.clientWidth){
         //   viewer.style.transformOrigin = `${originX}px ${originY}px`;
@@ -606,11 +606,11 @@
       PDFViewerApplication.pdfViewer.currentScale = PDFViewerApplication.pdfViewer.currentScale * pinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
-      const dy = startY - rect.top - 2;
+      const dy = startY - rect.top - 5;
       // container.scrollLeft += dx * (pinchScale - 1);
       // container.scrollTop += dy * (pinchScale - 1);
 
-      reset();
+      // reset();
     });
   }
     
