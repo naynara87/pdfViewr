@@ -543,10 +543,7 @@
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
     // Prevent native iOS page zoom
     //document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
-    testTxt.innerHTML = `대지사이즈2(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
-
-    //리사이즈시 사이드 숨기기
-    
+    testTxt.innerHTML = `대지사이즈(${viewerContainer.clientWidth}),페이지사이즈(${viewer.clientWidth})`;
 
     window.addEventListener('resize', function(){
       
