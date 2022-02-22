@@ -576,7 +576,7 @@
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
-      pinchScale = Math.round(pinchDistance / initialPinchDistance * 100) / 100;
+      pinchScale = pinchDistance / initialPinchDistance ;
       //스케일 사이즈 정수로
       if(PDFViewerApplication.pdfViewer.currentScale < 0.5){
         PDFViewerApplication.pdfViewer.currentScale = 0.5;
@@ -587,14 +587,14 @@
 
       viewer.style.transform = `scale(${pinchScale})`;
       // viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      testTxt.innerHTML = `대지사이즈1154(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
+      viewer.style.transformOrigin = `50% ${originY}px`;
+      testTxt.innerHTML = `대지사이즈1218(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale * pinchScale})`;
         //대지 대비 transformOrigin 변화 넣기
-        if(viewer.clientWidth > viewerContainer.clientWidth){
-          viewer.style.transformOrigin = `${originX}px ${originY}px`;
-        }else{
-          viewer.style.transformOrigin = `50% ${originY}px`;
-        }
+        // if(viewer.clientWidth > viewerContainer.clientWidth){
+        //   viewer.style.transformOrigin = `${originX}px ${originY}px`;
+        // }else{
+        //   viewer.style.transformOrigin = `50% ${originY}px`;
+        // }
 
     });
 
@@ -603,12 +603,12 @@
       if (initialPinchDistance <= 0) { return; }
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
-      PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
+      PDFViewerApplication.pdfViewer.currentScale = PDFViewerApplication.pdfViewer.currentScale * pinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
-      const dy = startY - rect.top + 5;
-      container.scrollLeft += dx * (pinchScale - 1);
-      container.scrollTop += dy * (pinchScale - 1);
+      const dy = startY - rect.top - 2;
+      // container.scrollLeft += dx * (pinchScale - 1);
+      // container.scrollTop += dy * (pinchScale - 1);
 
       reset();
     });
