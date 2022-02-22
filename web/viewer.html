@@ -531,7 +531,6 @@
 
       testTxt.innerHTML = `대지사이즈1154(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
       
-      pinchScale = Math.round(pinchDistance / initialPinchDistance * 100) / 100;
       PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
