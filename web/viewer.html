@@ -497,25 +497,18 @@
     })
   })
   let pinchZoomEnabled = false;
-
   function enablePinchZoom(pdfViewer) {
     let startX = 0, startY = 0;
     let initialPinchDistance = 0;
     let pinchScale = 1;
     const viewer = document.getElementById("viewer");
     const container = document.getElementById("viewerContainer");
-    const testTxt = document.getElementById("testTxt");
-    const page = document.querySelector("page");
-    const sidebarToggle = document.getElementById("sidebarToggle");
-    const outerContainer = document.getElementById("outerContainer");
-    const scaleSelectContainer = document.getElementById("scaleSelect");
-    const customScaleOption = document.getElementById("customScaleOption");
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
 
     // Prevent native iOS page zoom
     document.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
 
-    container.addEventListener("touchstart", (e) => {
+    viewer.addEventListener("touchstart", (e) => {
       if (e.touches.length > 1) {
         viewer.style.touchAction = 'pinch-zoom';
         startX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
@@ -526,44 +519,32 @@
       }
     });
 
-    container.addEventListener("touchmove", (e) => {
+    viewer.addEventListener("touchmove", (e) => {
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
 
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
-      pinchScale = Math.round(pinchDistance / initialPinchDistance * 10) / 10;
-      viewer.style.transform = `scale(${pinchScale})`;
-      // viewer.style.transformOrigin = `50% ${originY}px`;
-      if(viewer.clientWidth > viewerContainer.clientWidth){
-          viewer.style.transformOrigin = `${originX}px ${originY}px`;
-        }else{
-          viewer.style.transformOrigin = `50% ${originY}px`;
-        }
+      pinchScale = pinchDistance / initialPinchDistance;
 
-        if(PDFViewerApplication.pdfViewer.currentScale <= 0.6){
-          return false;
-        }else if(PDFViewerApplication.pdfViewer.currentScale > 4){
-          return false;
-        }
+      viewer.style.transform = `scale(${pinchScale})`;
+      viewer.style.transformOrigin = `${originX}px ${originY}px`;
     });
 
-    container.addEventListener("touchend", (e) => {
+    viewer.addEventListener("touchend", (e) => {
       viewer.style.touchAction = '';
       if (initialPinchDistance <= 0) { return; }
 
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
-      // PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
 
-      testTxt.innerHTML = `대지사이즈530(${viewerContainer.clientWidth}),스케일1(${pinchScale}),현재스케일(${PDFViewerApplication.pdfViewer.currentScale})`;
-
+      PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
       const rect = container.getBoundingClientRect();
       const dx = startX - rect.left;
-      const dy = startY - rect.top + 32;
-      
+      const dy = startY - rect.top;
       container.scrollLeft += dx * (pinchScale - 1);
       container.scrollTop += dy * (pinchScale - 1);
+
       reset();
     });
   }
@@ -574,6 +555,7 @@
       enablePinchZoom();
     }
   });
+
 </script>
 
 </html>
