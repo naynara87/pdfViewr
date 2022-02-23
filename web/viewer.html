@@ -482,6 +482,20 @@
 
 
 <script>
+  //로고 변경
+  var logoImg = document.querySelector('.bbc-logo-img');
+  //Darkmode Change 버튼 기능
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    document.documentElement.classList.add("dark");
+  }
+  //다크 on/off mode
+  var colorMode = document.querySelectorAll(".colorMode");
+  colorMode.forEach(function (e) {
+    e.addEventListener("click", () => {
+      document.documentElement.classList.toggle("dark");
+      console.log('클릭')
+    })
+  })
   let pinchZoomEnabled = false;
 
   function enablePinchZoom(pdfViewer) {
