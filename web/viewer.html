@@ -556,6 +556,34 @@
     }
   });
 
+  function 줌_막기() {
+      document.documentElement.addEventListener(
+        'touchstart',
+        function (event) {
+          if (event.touches.length > 1) {
+            event.preventDefault();
+          }
+        },
+        false
+      );
+  }
+  function 더블탭_줌_막기() {
+    var lastTouchEnd = 0;
+    document.documentElement.addEventListener(
+      'touchend',
+      function (event) {
+        var now = new Date().getTime();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      },
+      false
+    );
+  }
+  줌_막기();
+  더블탭_줌_막기();
+
 </script>
 
 </html>
