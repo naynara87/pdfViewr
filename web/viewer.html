@@ -351,7 +351,7 @@
       </div>
 
       <div id="viewerContainer" tabindex="0">
-        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">수치계산</div>
+        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">/1수치계산</div>
         <div id="viewer" class="pdfViewer">
         </div>
       </div>
@@ -501,6 +501,7 @@
     let startX = 0, startY = 0;
     let initialPinchDistance = 0;
     let pinchScale = 1;
+    // const newPinchScale;
     const viewer = document.getElementById("viewer");
     const container = document.getElementById("viewerContainer");
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
@@ -517,6 +518,7 @@
       } else {
         initialPinchDistance = 0;
       }
+      
     });
 
     viewer.addEventListener("touchmove", (e) => {
@@ -529,7 +531,14 @@
 
       viewer.style.transform = `scale(${pinchScale})`;
       viewer.style.transformOrigin = `${originX}px ${originY}px`;
+      if(viewer.clientWidth > viewerContainer.clientWidth){
+          viewer.style.transformOrigin = `${originX}px ${originY}px`;
+        }else{
+          viewer.style.transformOrigin = `50% ${originY}px`;
+        }
     });
+    const pinchMaxScale = 4;
+    const pinchMinScale = 0.2;
 
     viewer.addEventListener("touchend", (e) => {
       viewer.style.touchAction = '';
@@ -538,13 +547,15 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
 
-      PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
-      const rect = container.getBoundingClientRect();
-      const dx = startX - rect.left;
-      const dy = startY - rect.top;
-      container.scrollLeft += dx * (pinchScale - 1);
-      container.scrollTop += dy * (pinchScale - 1);
-
+      newPinchScale = PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+      if (newPinchScale <= pinchMaxScale && newPinchScale >= pinchMinScale) {
+        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
+        const rect = container.getBoundingClientRect();
+        const dx = startX - rect.left;
+        const dy = startY - rect.top;
+        container.scrollLeft += dx * (pinchScale - 1);
+        container.scrollTop += dy * (pinchScale - 1);
+      }
       reset();
     });
   }
@@ -583,6 +594,7 @@
   }
   줌_막기();
   더블탭_줌_막기();
+
 
 </script>
 
