@@ -351,7 +351,7 @@
       </div>
 
       <div id="viewerContainer" tabindex="0">
-        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">/1수치계산</div>
+        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">수치계산</div>
         <div id="viewer" class="pdfViewer">
         </div>
       </div>
@@ -505,6 +505,26 @@
     const viewer = document.getElementById("viewer");
     const container = document.getElementById("viewerContainer");
     const reset = () => { startX = startY = initialPinchDistance = 0; pinchScale = 1; };
+   
+    var windowWidth = window.innerWidth;
+
+    const pinchMaxScale = 6;
+    const pinchMinScale = 0.2;
+    
+    window.addEventListener('resize', function () {
+      if (windowWidth < 768) {
+        //창 가로 크기가 768 이하
+         pinchMaxScale = 10;
+         pinchMinScale = 0.8;
+
+      } else if(windowWidth < 500) {
+        //창 가로 크기가 500이하
+        
+         pinchMaxScale = 6;
+         pinchMinScale = 0.5;
+      }
+    }, true);
+
 
     // Prevent native iOS page zoom
     container.addEventListener("touchmove", (e) => { if (e.scale !== 1) { e.preventDefault(); } }, { passive: false });
@@ -521,24 +541,35 @@
       
     });
 
+
     container.addEventListener("touchmove", (e) => {
       if (initialPinchDistance <= 0 || e.touches.length < 2) { return; }
-
       const pinchDistance = Math.hypot((e.touches[1].pageX - e.touches[0].pageX), (e.touches[1].pageY - e.touches[0].pageY));
       const originX = startX + container.scrollLeft;
       const originY = startY + container.scrollTop;
-      pinchScale = pinchDistance / initialPinchDistance;
+      
+      
+      pinchScale = Math.round(pinchDistance / initialPinchDistance * 10000) / 10000;
+      newPinchScale = PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+      
+      
+      if(newPinchScale <= pinchMaxScale && newPinchScale >= pinchMinScale){
+        viewer.style.transform = `scale(${pinchScale})`;
+      }else{
+        viewer.style.transform = `none`;
+        viewer.style.transformOrigin = `unset`;
+      }
 
-      viewer.style.transform = `scale(${pinchScale})`;
-      viewer.style.transformOrigin = `${originX}px ${originY}px`;
-      if(viewer.clientWidth > viewerContainer.clientWidth){
+      if(viewer.clientWidth >= viewerContainer.clientWidth){
+          container.style.alignItems="none";
+          container.style.flexDirection="none";
           viewer.style.transformOrigin = `${originX}px ${originY}px`;
-        }else{
-          viewer.style.transformOrigin = `50% ${originY}px`;
-        }
+      }else{
+        viewer.style.transformOrigin = `50% ${originY}px`;
+      }
+
     });
-    const pinchMaxScale = 4;
-    const pinchMinScale = 0.2;
+    
 
     container.addEventListener("touchend", (e) => {
       viewer.style.touchAction = '';
@@ -547,15 +578,27 @@
       viewer.style.transform = `none`;
       viewer.style.transformOrigin = `unset`;
 
+      
+      const rect = container.getBoundingClientRect();
+      const dx = startX - rect.left;
+      const dy = startY - rect.top;
+      console.log(rect)
+      testTxt.innerHTML = `startX(${startX}),startY(${startY}/${startX - rect.left},${startY - rect.top})`;
+      
       newPinchScale = PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+      // newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
       if (newPinchScale <= pinchMaxScale && newPinchScale >= pinchMinScale) {
         PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
-        const rect = container.getBoundingClientRect();
-        const dx = startX - rect.left;
-        const dy = startY - rect.top;
-        container.scrollLeft += dx * (pinchScale - 1);
-        container.scrollTop += dy * (pinchScale - 1);
+        container.scrollLeft = container.scrollLeft + (dx * (pinchScale - 1));
+        container.scrollTop = container.scrollTop + (dy * (pinchScale - 1));
+
+          if (pinchScale > 1) {
+            // alert("1")
+          }else{
+            // alert("0")
+          }
       }
+      
       reset();
     });
   }
@@ -567,7 +610,7 @@
     }
   });
 
-  function 줌_막기() {
+  function zoom_prevent() {
       document.documentElement.addEventListener(
         'touchstart',
         function (event) {
@@ -578,7 +621,7 @@
         false
       );
   }
-  function 더블탭_줌_막기() {
+  function doubletab_prevent() {
     var lastTouchEnd = 0;
     document.documentElement.addEventListener(
       'touchend',
@@ -592,8 +635,8 @@
       false
     );
   }
-  줌_막기();
-  더블탭_줌_막기();
+  zoom_prevent();
+  doubletab_prevent();
 
 
 </script>

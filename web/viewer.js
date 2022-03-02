@@ -4447,7 +4447,7 @@ var DEFAULT_SCALE_DELTA = 1.1;
 exports.DEFAULT_SCALE_DELTA = DEFAULT_SCALE_DELTA;
 var MIN_SCALE = 0.2;
 exports.MIN_SCALE = MIN_SCALE;
-var MAX_SCALE = 4.0;
+var MAX_SCALE = 6.0;
 exports.MAX_SCALE = MAX_SCALE;
 var UNKNOWN_SCALE = 0;
 exports.UNKNOWN_SCALE = UNKNOWN_SCALE;
@@ -14336,9 +14336,9 @@ var BaseViewer = /*#__PURE__*/function () {
 
             // 가로정렬
             var viewerContainer = document.getElementById('viewerContainer');
-            viewerContainer.style.display = 'flex';
-            viewerContainer.style.alignItems="center";
-            viewerContainer.style.flexDirection="column";
+            // viewerContainer.style.display = 'flex';
+            // viewerContainer.style.alignItems="center";
+            // viewerContainer.style.flexDirection="column";
             
         if (this._scrollMode === _ui_utils.ScrollMode.HORIZONTAL || left < scrollLeft || right > scrollLeft + clientWidth) {
           pageSpot = {

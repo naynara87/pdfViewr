@@ -1,0 +1,4 @@
+Step 1: You will need to edit the index.html on line 52 with the PDF location. 
+Step 2: Open the main.js and update lines 2-3 to have the name of the PDF and your object ID needed by xAPI. This is usually your website with additional details about the learning experience. 
+Step 3: Open up xapiwrapper.js and go to lines 108, 109 and 111 and update this with your LRS key, secret and endpoint.
+Step 4: You can customize more but go to www.learningdojo.ninja/blog to find the video showing how to do this. 
