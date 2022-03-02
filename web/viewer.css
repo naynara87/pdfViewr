@@ -712,8 +712,8 @@
   height: 1056px;
   position: relative;
   overflow: visible;
-  /* margin: var(--page-margin); */
-  /* margin: 10px auto 3px; */
+  margin: var(--page-margin);
+  margin: 10px auto 3px;
   border: var(--page-border);
   
   /* background-clip: content-box;
