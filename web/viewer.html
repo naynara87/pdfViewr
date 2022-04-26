@@ -351,7 +351,7 @@
       </div>
 
       <div id="viewerContainer" tabindex="0">
-        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">수치계산2</div>
+        <div id="testTxt" style="position: fixed; top:60px; right:20px; z-index: 99; background-color:#fff">수치계산3</div>
         <div id="viewer" class="pdfViewer">
         </div>
       </div>
@@ -521,7 +521,7 @@
         //창 가로 크기가 500이하
         
          pinchMaxScale = 6;
-         pinchMinScale = 0.5;
+         pinchMinScale = 0.9;
       }
     }, true);
 
@@ -585,19 +585,19 @@
       // console.log(rect)
       // testTxt.innerHTML = `startX(${startX}),startY(${startY}/${startX - rect.left},${startY - rect.top})`;
       
-      // newPinchScale = PDFViewerApplication.pdfViewer.currentScale * pinchScale;
-      // // newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
-      // if (newPinchScale <= pinchMaxScale && newPinchScale >= pinchMinScale) {
-      //   PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
-      //   container.scrollLeft = container.scrollLeft + (dx * (pinchScale - 1));
-      //   container.scrollTop = container.scrollTop + (dy * (pinchScale - 1));
+      newPinchScale = PDFViewerApplication.pdfViewer.currentScale * pinchScale;
+      newPinchScale = Math.round(PDFViewerApplication.pdfViewer.currentScale * pinchScale * 10) / 10;
+      if (newPinchScale <= pinchMaxScale && newPinchScale >= pinchMinScale) {
+        PDFViewerApplication.pdfViewer.currentScale = newPinchScale;
+        container.scrollLeft = container.scrollLeft + (dx * (pinchScale - 1));
+        container.scrollTop = container.scrollTop + (dy * (pinchScale - 1));
 
-      //     if (pinchScale > 1) {
-      //       // alert("1")
-      //     }else{
-      //       // alert("0")
-      //     }
-      // }
+          if (pinchScale > 1) {
+            // alert("1")
+          }else{
+            // alert("0")
+          }
+      }
       
       reset();
     });
